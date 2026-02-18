@@ -165,3 +165,33 @@
   border-right: 1px solid #fff;
   border-bottom: 1px solid #fff;
 }
+
+@media (max-width: 480px) {
+  .container {
+    padding: 6px;
+  }
+  .content {
+    padding: 10px;
+  }
+  .field {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .field label {
+    width: auto;
+    text-align: left;
+  }
+  .field input {
+    width: 100%;
+    min-width: 0;
+  }
+  .inputGroup {
+    width: 100%;
+    min-width: 0;
+  }
+  .inputGroup input {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
