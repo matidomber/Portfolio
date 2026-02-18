@@ -108,3 +108,19 @@
   transform: translateY(-1px);
   color: #000;
 }
+
+@media (max-width: 480px) {
+  .content {
+    padding: 16px;
+  }
+  .title {
+    font-size: 1.2rem;
+  }
+  .desc {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+  .imagePlaceholder {
+    height: 120px;
+  }
+}

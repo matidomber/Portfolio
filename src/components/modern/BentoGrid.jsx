@@ -26,7 +26,6 @@ export default function BentoGrid({ projects }) {
         <Motion.div
           key={project.id}
           className={styles.cell}
-          style={{ margin: "10px" }}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: index * 0.1 }}

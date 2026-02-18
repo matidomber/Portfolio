@@ -79,3 +79,22 @@
     font-size: 2.5rem;
   }
 }
+
+@media (max-width: 480px) {
+  .container {
+    padding: 40px 0;
+  }
+  .heading {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  .role {
+    font-size: 1.2rem;
+  }
+  .company {
+    font-size: 1rem;
+  }
+  .desc {
+    font-size: 0.9rem;
+  }
+}

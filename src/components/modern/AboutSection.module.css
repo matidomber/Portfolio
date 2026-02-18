@@ -31,3 +31,14 @@
     font-size: 1.5rem;
   }
 }
+
+@media (max-width: 480px) {
+  .about {
+    padding: 40px 0;
+    gap: 20px;
+  }
+  .content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+}

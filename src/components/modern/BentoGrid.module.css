@@ -68,7 +68,7 @@
 @media (max-width: 600px) {
   .grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
   }
   .cellLarge, .cellTall {
     grid-column: span 1;
@@ -76,6 +76,21 @@
   }
   /* Lanyard container specifically */
   .cellLarge:first-child {
-    min-height: 400px; /* Give space for the lanyard to hang */
+    min-height: 350px;
+  }
+  .cell {
+    border-radius: 16px;
+  }
+  .decor {
+    padding: 20px;
+  }
+  .decor li {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .cellLarge:first-child {
+    min-height: 300px;
   }
 }
