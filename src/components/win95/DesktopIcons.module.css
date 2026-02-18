@@ -1,0 +1,49 @@
+.iconGrid {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-wrap: wrap; /* Actually Win95 is columns usually, simplified here */
+  height: 100%;
+  align-content: flex-start;
+}
+
+.iconWrapper {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid transparent;
+}
+
+.iconWrapper:hover {
+  /* No hover effect on wrapper usually, just cursor */
+}
+
+.selected .iconLabel {
+  background-color: #000080;
+  color: white;
+  border: 1px dotted #ffff00;
+}
+
+.selected .iconImg {
+  filter: drop-shadow(2px 2px 0 rgba(0,0,128,0.5)); /* highlight effect */
+}
+
+.iconImg {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 5px;
+  image-rendering: pixelated; /* Enhance retro feel */
+}
+
+.iconLabel {
+  font-family: 'Segoe UI', sans-serif; /* Fallback */
+  font-size: 12px;
+  color: white;
+  text-shadow: 1px 1px 1px black; /* Classic shadow */
+  text-align: center;
+  padding: 2px;
+}

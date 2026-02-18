@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
+}
+
+.menubar {
+  display: flex;
+  gap: 10px;
+  padding: 2px 5px;
+  background: #c0c0c0;
+  font-size: 13px;
+  user-select: none;
+}
+
+.menubar span {
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.menubar span:hover {
+  background: #000080;
+  color: white;
+}
+
+.textarea {
+  flex: 1;
+  width: 100%;
+  border: none;
+  resize: none;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  padding: 5px;
+  outline: none;
+  white-space: pre-wrap;
+  cursor: text;
+}

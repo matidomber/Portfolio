@@ -1,0 +1,44 @@
+.marqueeContainer {
+  width: 100%;
+  overflow: hidden;
+  padding: 60px 0;
+  background: var(--modern-bg);
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+}
+
+.track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+
+.marqueeGroup {
+  display: flex;
+  gap: 40px;
+}
+
+.techItem {
+  font-size: 4rem;
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--modern-text);
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+.techItem:hover {
+  opacity: 1;
+  color: var(--modern-text);
+  -webkit-text-stroke: 0px;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-25%); } /* Depends on how many groups. If 4 groups, -25% implies 1 full group width */
+}

@@ -1,0 +1,9 @@
+.desktop {
+  width: 100%;
+  height: 100vh;
+  background-color: #008080; /* Classic Win95 Teal */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}

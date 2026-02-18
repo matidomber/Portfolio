@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: white;
+}
+
+.menubar {
+  display: flex;
+  gap: 10px;
+  padding: 2px 5px;
+  border-bottom: 2px solid #808080; /* simple separator */
+  margin-bottom: 2px;
+  font-size: 13px;
+  user-select: none;
+}
+
+.menubar span {
+  cursor: pointer;
+}
+
+.menubar span:hover {
+  background: #000080;
+  color: white;
+}
+
+.content {
+  flex: 1;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-auto-rows: min-content;
+  gap: 15px;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid transparent;
+}
+
+.item:hover {
+  border: 1px solid #808080; /* faint outline */
+}
+
+.item:hover .label {
+  background: #000080;
+  color: white;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+}
+
+.label {
+  font-size: 12px;
+  text-align: center;
+  word-break: break-word;
+}
+
+.type {
+  display: none; /* Hidden in icon view, maybe meaningful for tooltip */
+}
+
+.statusbar {
+  border-top: 2px solid #dfdfdf;
+  padding: 2px 5px;
+  font-size: 12px;
+  background: #c0c0c0;
+}

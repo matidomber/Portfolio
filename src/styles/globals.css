@@ -1,0 +1,76 @@
+:root {
+  /* Modern Theme Variables (Swiss/Clean) */
+  --modern-bg: #f4f4f4;
+  --modern-text: #1a1a1a;
+  --modern-accent: #2d2d2d;
+  --modern-grid-gap: 20px;
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Win95 Theme Variables */
+  --win-bg: #008080; /* Classic Teal */
+  --win-gray: #c0c0c0;
+  --win-gray-light: #dfdfdf;
+  --win-gray-dark: #808080;
+  --win-black: #000000;
+  --win-white: #ffffff;
+  --win-blue-dark: #000080;
+  
+  /* Win95 3D Border Styles (reusable) */
+  --win-border-raised-top: 2px solid var(--win-white);
+  --win-border-raised-left: 2px solid var(--win-white);
+  --win-border-raised-right: 2px solid var(--win-black);
+  --win-border-raised-bottom: 2px solid var(--win-black);
+  
+  --win-border-sunken-top: 2px solid var(--win-black);
+  --win-border-sunken-left: 2px solid var(--win-black);
+  --win-border-sunken-right: 2px solid var(--win-white);
+  --win-border-sunken-bottom: 2px solid var(--win-white);
+  
+  --font-pixel: 'Courier New', monospace; /* Placeholder for pixel font */
+  --font-win95: 'MS Sans Serif', 'Segoe UI', Tahoma, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--modern-bg); /* Default start */
+  color: var(--modern-text);
+  overflow: hidden; /* App handles scrolling */
+  height: 100vh;
+  width: 100vw;
+  transition: background-color 0.5s ease;
+}
+
+/* Utilities */
+.full-screen {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Win95 3D Button Utilities */
+.win-raised {
+  border-top: var(--win-border-raised-top);
+  border-left: var(--win-border-raised-left);
+  border-right: var(--win-border-raised-right);
+  border-bottom: var(--win-border-raised-bottom);
+}
+
+.win-sunken {
+  border-top: var(--win-border-sunken-top);
+  border-left: var(--win-border-sunken-left);
+  border-right: var(--win-border-sunken-right);
+  border-bottom: var(--win-border-sunken-bottom);
+}
+
+/* Scrollbar hiding if needed */
+::-webkit-scrollbar {
+  display: none;
+}

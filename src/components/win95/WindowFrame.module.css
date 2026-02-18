@@ -1,0 +1,127 @@
+.window {
+  position: absolute;
+  background: #c0c0c0;
+  border-top: 2px solid #dfdfdf;
+  border-left: 2px solid #dfdfdf;
+  border-right: 2px solid #000;
+  border-bottom: 2px solid #000;
+  box-shadow: 1px 1px 0 #000;
+  min-width: 300px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  padding: 3px;
+  user-select: none;
+}
+
+.titleBar {
+  background: #808080; /* Inactive color */
+  padding: 3px 2px 3px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+  cursor: default;
+}
+
+.titleBarActive {
+  background: #000080; /* Win95 Active Blue */
+}
+
+.title {
+  color: #c0c0c0; /* Inactive text */
+  font-weight: bold;
+  font-size: 13px;
+  font-family: sans-serif;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+}
+
+.titleBarActive .title {
+  color: white;
+}
+
+.closeBtn {
+  width: 16px;
+  height: 14px;
+  background: #c0c0c0;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.closeBtn:active {
+  border-top: 1px solid #000;
+  border-left: 1px solid #000;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  transform: translate(1px, 1px);
+}
+
+.content {
+  flex: 1;
+  background: white;
+  border: 2px solid;
+  border-color: #808080 #dfdfdf #dfdfdf #808080; /* Inset look */
+  padding: 10px;
+  font-family: 'Courier New', monospace;
+  overflow: auto;
+}
+/* Mobile: Fullscreen windows for better UX */
+@media (max-width: 768px) {
+  .window {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: calc(100vh - 44px) !important; /* Leave room for taskbar */
+    min-width: unset;
+    max-width: unset;
+    border-radius: 0;
+    z-index: 500 !important;
+  }
+
+  .titleBar {
+    padding: 8px 6px;
+    touch-action: none; /* Disable drag on mobile */
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .closeBtn {
+    width: 32px;
+    height: 28px;
+    min-width: 32px; /* Ensure touch target */
+  }
+
+  .content {
+    max-height: calc(100vh - 120px);
+  }
+}
+
+.resizeHandle {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 15px;
+  height: 15px;
+  cursor: se-resize;
+  /* Retro grip lines */
+  background: linear-gradient(135deg, transparent 50%, #808080 50%, #808080 55%, #c0c0c0 55%, #c0c0c0 60%, #808080 60%);
+  z-index: 100;
+}
+
+/* Larger resize handle for touch on mobile */
+@media (max-width: 768px) {
+  .resizeHandle {
+    display: none; /* Hide resize on mobile - windows are fullscreen */
+  }
+}
