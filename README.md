@@ -37,7 +37,7 @@ Build an interactive, memorable portfolio that:
 
 | Category | Technologies |
 |----------|-------------|
-| **Core** | React 19, Vite 7 |
+| **Core** | React, Vite,  |
 | **3D** | Three.js, React Three Fiber, Rapier Physics |
 | **Animation** | Framer Motion, Lenis |
 | **Styling** | CSS Modules, CSS Custom Properties |
