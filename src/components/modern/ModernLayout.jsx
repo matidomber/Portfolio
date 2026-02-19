@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { motion as Motion } from 'framer-motion';
 import BentoGrid from './BentoGrid';
-import { portfolioData, getLocalizedProjects } from '../../data/portfolio';
+import { portfolioData, getLocalizedProjects, getCVTranslation } from '../../data/portfolio';
 import { useLang } from '../../context/LanguageContext';
 import SplitText from './SplitText';
 import TechMarquee from './TechMarquee';
@@ -24,10 +24,11 @@ const containerVariants = {
   },
 };
 
-export default function ModernLayout() {
+export default function ModernLayout({ onOpenCV }) {
   const containerRef = useRef(null);
   const { lang, toggleLang } = useLang();
   const localizedProjects = getLocalizedProjects(lang);
+  const cvT = getCVTranslation(lang);
 
   return (
     <SmoothScroll containerRef={containerRef}>
@@ -56,6 +57,13 @@ export default function ModernLayout() {
               aria-label="Toggle language"
             >
               {lang === 'pl' ? 'EN' : 'PL'}
+            </button>
+            <button 
+              className={styles.langToggle} 
+              onClick={onOpenCV}
+              aria-label="Download CV"
+            >
+              📄 {cvT.download}
             </button>
             <span>2026 / PORTFOLIO</span>
           </div>

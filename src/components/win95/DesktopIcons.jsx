@@ -12,9 +12,10 @@ const icons = [
   { id: 'projects', label: 'My Projects', icon: '/icons/directory.png' },
   { id: 'contact', label: 'Contact', icon: '/icons/contact.png' },
   { id: 'resume', label: 'Resume.txt', icon: '/icons/notepad.png' },
+  { id: 'cv', label: 'My CV', icon: '/icons/notepad.png' },
 ];
 
-export default function DesktopIcons() {
+export default function DesktopIcons({ onOpenCV }) {
   const { openWindow } = useWindows();
   const [selectedIconId, setSelectedIconId] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -27,6 +28,12 @@ export default function DesktopIcons() {
   }, []);
 
   const handleOpen = (icon) => {
+    // CV opens as a full overlay, not a Win95 window
+    if (icon.id === 'cv') {
+      onOpenCV?.();
+      return;
+    }
+
     let content;
     let initialSize = { width: 400, height: 300 }; // Default size
 

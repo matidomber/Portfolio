@@ -6,7 +6,7 @@ import DesktopIcons from './DesktopIcons';
 import WindowManager from './WindowManager';
 import BSOD from './BSOD';
 
-export default function Win95Layout() {
+export default function Win95Layout({ onOpenCV }) {
   const [isBsod, setIsBsod] = useState(false);
 
   if (isBsod) {
@@ -16,7 +16,7 @@ export default function Win95Layout() {
   return (
     <WindowProvider>
       <div className={styles.desktop}>
-        <DesktopIcons />
+        <DesktopIcons onOpenCV={onOpenCV} />
         <WindowManager />
         <Taskbar onShutdown={() => setIsBsod(true)} />
       </div>
