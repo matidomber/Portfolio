@@ -70,17 +70,20 @@
 /* Mobile Start Menu adjustments */
 @media (max-width: 768px) {
   .startMenu {
+    position: fixed; /* Match fixed taskbar */
     bottom: 44px; /* Above mobile taskbar */
     left: 0;
     width: 85vw;
     max-width: 280px;
-    max-height: calc(100dvh - 50px); /* Use dynamic vh to account for browser chrome */
+    max-height: calc(100dvh - 50px);
     overflow: hidden;
+    z-index: 10000; /* Above taskbar z-index (9999) */
   }
 
   .content {
     overflow-y: auto;
-    max-height: calc(100dvh - 80px); /* Scroll only items, sidebar stays fixed */
+    max-height: calc(100dvh - 80px);
+    -webkit-overflow-scrolling: touch;
   }
 
   .sidebar {
@@ -94,7 +97,7 @@
   }
 
   .item {
-    padding: 10px 10px; /* Touch-friendly but compact */
+    padding: 10px 10px;
     min-height: 40px;
   }
 
