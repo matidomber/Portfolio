@@ -74,8 +74,13 @@
     left: 0;
     width: 85vw;
     max-width: 280px;
-    max-height: 70vh;
+    max-height: calc(100dvh - 50px); /* Use dynamic vh to account for browser chrome */
+    overflow: hidden;
+  }
+
+  .content {
     overflow-y: auto;
+    max-height: calc(100dvh - 80px); /* Scroll only items, sidebar stays fixed */
   }
 
   .sidebar {
@@ -89,16 +94,16 @@
   }
 
   .item {
-    padding: 12px 10px; /* Larger touch target (44px+ height) */
-    min-height: 44px;
+    padding: 10px 10px; /* Touch-friendly but compact */
+    min-height: 40px;
   }
 
   .icon {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
   }
 
   .label {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
