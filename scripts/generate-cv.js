@@ -1,3 +1,9 @@
+// Auto-install puppeteer if not present
+import { execSync } from 'child_process';
+try { await import('puppeteer'); } catch { 
+  console.log('📦 Instaluję puppeteer (jednorazowo)...');
+  execSync('npm install --no-save puppeteer', { stdio: 'inherit' });
+}
 import puppeteer from 'puppeteer';
 import { join } from 'path';
 
