@@ -99,7 +99,7 @@ export const portfolioData = {
       title: "HireUP",
       type: "Web Application",
       tech: ["React", "Firebase", "Tailwind"],
-      link: "https://github.com/matidomber/HIREUP",
+      link: "https://hire-up.pl/",
       image: "/projects/hireup.png"
     },
     {
