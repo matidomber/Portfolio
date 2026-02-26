@@ -122,7 +122,7 @@ export const portfolioData = {
   skills: {
     frontend: ["React", "JavaScript (ES6+)", "Three.js", "Framer Motion", "Tailwind", "CSS", "HTML5", "Next.js", "TypeScript", "Redux"],
     backend: ["Node.js", "Express", "PostgreSQL", "Firebase", "REST API", "Python", "SQL"],
-    tools: ["Git", "Vite", "Canvas", "AI", "AWS", "Docker"],
+    tools: ["Git", "Vite", "Canvas", "AI", "AWS", "Google Cloud", "Docker", "Linux", "SSH/SFTP"],
     scripting: ["npm", "lua", "bash"]
   },
   stackHighlights: ["React", "Node.js", "Postgres"],

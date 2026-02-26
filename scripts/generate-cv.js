@@ -4,7 +4,7 @@ try { await import('puppeteer'); } catch {
   console.log('📦 Instaluję puppeteer (jednorazowo)...');
   execSync('npm install --no-save puppeteer', { stdio: 'inherit' });
 }
-import puppeteer from 'puppeteer';
+const { default: puppeteer } = await import('puppeteer');
 import { join } from 'path';
 
 const docsDir = 'C:/Users/matid/Documents';
