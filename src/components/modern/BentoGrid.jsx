@@ -1,8 +1,10 @@
+import { lazy, Suspense } from "react";
 import { motion as Motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
-import Lanyard from "../../lanyard/lanyard";
 import { portfolioData } from "../../data/portfolio";
 import styles from "./BentoGrid.module.css";
+
+const Lanyard = lazy(() => import("../../lanyard/lanyard"));
 
 export default function BentoGrid({ projects }) {
   return (
@@ -16,9 +18,11 @@ export default function BentoGrid({ projects }) {
           background: "transparent",
           boxShadow: "none",
           overflow: "visible",
-        }}
+        }} // Override for 3D context
       >
-        <Lanyard position={[0, -6, 15]} gravity={[0, -40, 0]} />
+        <Suspense fallback={<LanyardSkeleton />}>
+          <Lanyard position={[0, -6, 15]} gravity={[0, -40, 0]} />
+        </Suspense>
       </Motion.div>
 
       {/* Project Cards */}
@@ -37,7 +41,7 @@ export default function BentoGrid({ projects }) {
       {/* Stack Highlights */}
       <div className={`${styles.cell} ${styles.cellTall}`}>
         <div className={styles.decor}>
-          <span className={styles.decorLabel}>STACK</span>
+          <span>STACK</span>
           <ul>
             {portfolioData.stackHighlights.map(s => (
               <li key={s}>{s}</li>
@@ -45,6 +49,14 @@ export default function BentoGrid({ projects }) {
           </ul>
         </div>
       </div>
+    </div>
+  );
+}
+
+function LanyardSkeleton() {
+  return (
+    <div className={styles.lanyardSkeleton}>
+      <div className={styles.skeletonCard} />
     </div>
   );
 }

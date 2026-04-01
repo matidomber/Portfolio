@@ -29,25 +29,6 @@ function run(cmd) {
 
 console.log('\n🗜  Portfolio Asset Compression\n');
 
-/* ── GLB (card model) ─────────────────────────────────────────── */
-console.log(`📦  GLB before: ${sizeMB(GLB_IN)}`);
-
-// Backup original
-const GLB_BACKUP = GLB_IN + '.orig';
-copyFileSync(GLB_IN, GLB_BACKUP);
-
-try {
-  // @gltf-transform/cli installed on-the-fly via npx
-  run(
-    `npx --yes @gltf-transform/cli optimize "${GLB_IN}" "${GLB_OUT}" --compress draco`
-  );
-  console.log(`✅  GLB after:  ${sizeMB(GLB_OUT)}`);
-} catch (err) {
-  console.error('❌  GLB compression failed, restoring original');
-  copyFileSync(GLB_BACKUP, GLB_OUT);
-  throw err;
-}
-
 /* ── PNG (lanyard texture) ────────────────────────────────────── */
 console.log(`\n🖼   PNG before: ${sizeMB(PNG_IN)}`);
 
