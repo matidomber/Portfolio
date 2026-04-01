@@ -14,9 +14,6 @@ import './lanyard.css';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
-// Preload assets as early as possible — starts fetching before component mounts
-useGLTF.preload(cardGLB);
-
 export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], fov = 15, transparent = true }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
@@ -30,14 +27,14 @@ export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], 
     <div className="lanyard-wrapper">
       <Canvas
         key={isMobile ? 'mobile' : 'desktop'}
-        resize={{ debounce: 200 }}
+        resize={{ debounce: 100 }}
         camera={{ position: position, fov: isMobile ? 13 : fov }}
-        // Cap DPR at 1.5 — visually identical to 2 but ~44% fewer pixels rendered
-        dpr={[1, isMobile ? 1 : 1.5]}
+        dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <ambientLight intensity={Math.PI} />
+        {/* Suspense inside Canvas catches useGLTF/useTexture suspension safely */}
         <Suspense fallback={null}>
           <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
             <Band isMobile={isMobile} />
@@ -139,7 +136,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
       curve.points[1].copy(j2.current.lerped);
       curve.points[2].copy(j1.current.lerped);
       curve.points[3].copy(fixed.current.translation());
-      band.current.geometry.setPoints(curve.getPoints(isMobile ? 12 : 24));
+      band.current.geometry.setPoints(curve.getPoints(isMobile ? 16 : 32));
       ang.copy(card.current.angvel());
       rot.copy(card.current.rotation());
       card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
@@ -180,7 +177,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
                 map={materials.base.map}
-                map-anisotropy={isMobile ? 4 : 8}
+                map-anisotropy={16}
                 clearcoat={isMobile ? 0 : 1}
                 clearcoatRoughness={0.15}
                 roughness={0.9}
@@ -197,7 +194,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
         <meshLineMaterial
           color="white"
           depthTest={false}
-          resolution={isMobile ? [800, 1600] : [1000, 1000]}
+          resolution={isMobile ? [1000, 2000] : [1000, 1000]}
           useMap
           map={texture}
           repeat={isMobile ? [-2, 1] : [-3, 1]}
