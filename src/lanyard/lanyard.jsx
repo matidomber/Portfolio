@@ -19,19 +19,11 @@ useGLTF.preload(cardGLB);
 
 export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], fov = 15, transparent = true }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
-  // Delay physics start to prevent the jarring initial snap/jump
-  const [physicsReady, setPhysicsReady] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Unpause physics after a short settling delay
-  useEffect(() => {
-    const timer = setTimeout(() => setPhysicsReady(true), 300);
-    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -42,11 +34,11 @@ export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], 
         camera={{ position: position, fov: isMobile ? 13 : fov }}
         // Cap DPR at 1.5 — visually identical to 2 but ~44% fewer pixels rendered
         dpr={[1, isMobile ? 1 : 1.5]}
-        gl={{ alpha: transparent, antialias: !isMobile, powerPreference: 'high-performance' }}
+        gl={{ alpha: transparent }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <ambientLight intensity={Math.PI} />
-        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60} paused={!physicsReady}>
+        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
           <Band isMobile={isMobile} />
         </Physics>
         <Environment blur={0.75}>

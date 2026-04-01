@@ -5,19 +5,21 @@
   background: var(--modern-bg);
   border-top: 1px solid rgba(0, 0, 0, 0.08);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  /* Fade edges for a polished look */
+  display: flex;
+  align-items: center;
+  /* Fade edges */
   mask-image: linear-gradient(
     to right,
     transparent 0%,
-    black 8%,
-    black 92%,
+    black 6%,
+    black 94%,
     transparent 100%
   );
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0%,
-    black 8%,
-    black 92%,
+    black 6%,
+    black 94%,
     transparent 100%
   );
 }
@@ -44,21 +46,20 @@
   font-size: clamp(2.5rem, 4vw, 4rem);
   font-weight: 800;
   color: transparent;
-  -webkit-text-stroke: 1.5px currentColor;
-  color: transparent;
   -webkit-text-stroke: 1.5px var(--modern-text);
   text-transform: uppercase;
   white-space: nowrap;
   opacity: 0.25;
-  transition: opacity 0.25s ease, -webkit-text-stroke-width 0.25s ease;
+  transition: opacity 0.25s ease, color 0.25s ease;
   cursor: default;
   user-select: none;
+  line-height: 1.2;
 }
 
 .techItem:hover {
   opacity: 1;
-  -webkit-text-fill-color: var(--modern-text);
-  -webkit-text-stroke-width: 0px;
+  color: var(--modern-text);
+  -webkit-text-stroke: 0px transparent;
 }
 
 /* 2-group seamless loop: track width = 2x one-group, scroll = 50% */
