@@ -3,18 +3,8 @@ import ProjectCard from "./ProjectCard";
 import { portfolioData } from "../../data/portfolio";
 import styles from "./BentoGrid.module.css";
 
-// Lazy load Lanyard — splits it into a separate chunk
-// The 3D scene (card.glb ~3.3MB + lanyard.png ~1.6MB) loads asynchronously
-// so the rest of the page is immediately interactive
+// Lazy loaded — GLB/PNG load in separate chunk, not blocking initial render
 const Lanyard = lazy(() => import("../../lanyard/lanyard"));
-
-function LanyardSkeleton() {
-  return (
-    <div className={styles.lanyardSkeleton}>
-      <div className={styles.skeletonCard} />
-    </div>
-  );
-}
 
 export default function BentoGrid({ projects }) {
   return (
@@ -28,6 +18,7 @@ export default function BentoGrid({ projects }) {
           overflow: "visible",
         }}
       >
+        {/* Suspense catches: 1) lazy module load 2) useGLTF suspension inside Canvas */}
         <Suspense fallback={<LanyardSkeleton />}>
           <Lanyard position={[0, -6, 15]} gravity={[0, -40, 0]} />
         </Suspense>
@@ -55,6 +46,14 @@ export default function BentoGrid({ projects }) {
           </ul>
         </div>
       </div>
+    </div>
+  );
+}
+
+function LanyardSkeleton() {
+  return (
+    <div className={styles.lanyardSkeleton}>
+      <div className={styles.skeletonCard} />
     </div>
   );
 }
