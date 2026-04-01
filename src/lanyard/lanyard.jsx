@@ -15,6 +15,9 @@ import './lanyard.css';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
+// Wczesne pobieranie - gwarantuje dużo szybszy start i eliminuje blokadę. Bezpieczne dla oryginalnego card.glb
+useGLTF.preload(cardGLB);
+
 export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], fov = 15, transparent = true }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
 
@@ -30,8 +33,9 @@ export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], 
         key={isMobile ? 'mobile' : 'desktop'}
         resize={{ debounce: 100 }}
         camera={{ position: position, fov: isMobile ? 13 : fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
-        gl={{ alpha: transparent }}
+        // Drastyczne odciążenie GPU na telefonach (DPR 1 max zamiast 1.5/2)
+        dpr={[1, isMobile ? 1 : 1.5]}
+        gl={{ alpha: transparent, antialias: !isMobile }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <ambientLight intensity={Math.PI} />
@@ -177,7 +181,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
                 map={materials.base.map}
-                map-anisotropy={16}
+                map-anisotropy={isMobile ? 4 : 16}
                 clearcoat={isMobile ? 0 : 1}
                 clearcoatRoughness={0.15}
                 roughness={0.9}
