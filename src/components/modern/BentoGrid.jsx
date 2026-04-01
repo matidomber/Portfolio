@@ -1,38 +1,37 @@
-import { lazy, Suspense } from "react";
+import { motion as Motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
+import Lanyard from "../../lanyard/lanyard";
 import { portfolioData } from "../../data/portfolio";
 import styles from "./BentoGrid.module.css";
-
-// Lazy loaded — GLB/PNG load in separate chunk, not blocking initial render
-const Lanyard = lazy(() => import("../../lanyard/lanyard"));
 
 export default function BentoGrid({ projects }) {
   return (
     <div className={styles.grid}>
-      {/* Primary Feature — Lanyard Card */}
-      <div
+      {/* Primary Feature - Lanyard Card */}
+      <Motion.div
         className={`${styles.cell} ${styles.cellLarge}`}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         style={{
           background: "transparent",
           boxShadow: "none",
           overflow: "visible",
         }}
       >
-        {/* Suspense catches: 1) lazy module load 2) useGLTF suspension inside Canvas */}
-        <Suspense fallback={<LanyardSkeleton />}>
-          <Lanyard position={[0, -6, 15]} gravity={[0, -40, 0]} />
-        </Suspense>
-      </div>
+        <Lanyard position={[0, -6, 15]} gravity={[0, -40, 0]} />
+      </Motion.div>
 
       {/* Project Cards */}
       {projects.map((project, index) => (
-        <div
+        <Motion.div
           key={project.id}
           className={styles.cell}
-          style={{ animationDelay: `${index * 80}ms` }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: index * 0.1 }}
         >
           <ProjectCard project={project} />
-        </div>
+        </Motion.div>
       ))}
 
       {/* Stack Highlights */}
@@ -46,14 +45,6 @@ export default function BentoGrid({ projects }) {
           </ul>
         </div>
       </div>
-    </div>
-  );
-}
-
-function LanyardSkeleton() {
-  return (
-    <div className={styles.lanyardSkeleton}>
-      <div className={styles.skeletonCard} />
     </div>
   );
 }
