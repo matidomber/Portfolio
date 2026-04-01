@@ -6,7 +6,6 @@ import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 
-// replace with your own imports, see the usage snippet for details
 import cardGLB from './card.glb';
 import lanyard from './lanyard.png';
 
@@ -15,8 +14,13 @@ import './lanyard.css';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
+// Preload assets as early as possible — starts fetching before component mounts
+useGLTF.preload(cardGLB);
+
 export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], fov = 15, transparent = true }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+  // Delay physics start to prevent the jarring initial snap/jump
+  const [physicsReady, setPhysicsReady] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -24,18 +28,25 @@ export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Unpause physics after a short settling delay
+  useEffect(() => {
+    const timer = setTimeout(() => setPhysicsReady(true), 300);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="lanyard-wrapper">
       <Canvas
         key={isMobile ? 'mobile' : 'desktop'}
-        resize={{ debounce: 100 }}
+        resize={{ debounce: 200 }}
         camera={{ position: position, fov: isMobile ? 13 : fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
-        gl={{ alpha: transparent }}
+        // Cap DPR at 1.5 — visually identical to 2 but ~44% fewer pixels rendered
+        dpr={[1, isMobile ? 1 : 1.5]}
+        gl={{ alpha: transparent, antialias: !isMobile, powerPreference: 'high-performance' }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
         <ambientLight intensity={Math.PI} />
-        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
+        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60} paused={!physicsReady}>
           <Band isMobile={isMobile} />
         </Physics>
         <Environment blur={0.75}>
@@ -72,6 +83,7 @@ export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], 
     </div>
   );
 }
+
 function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
   const band = useRef(),
     fixed = useRef(),
@@ -80,7 +92,6 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
     j3 = useRef(),
     card = useRef();
 
-  
   const { vec, ang, rot, dir } = useMemo(() => ({
     vec: new THREE.Vector3(),
     ang: new THREE.Vector3(),
@@ -134,7 +145,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
       curve.points[1].copy(j2.current.lerped);
       curve.points[2].copy(j1.current.lerped);
       curve.points[3].copy(fixed.current.translation());
-      band.current.geometry.setPoints(curve.getPoints(isMobile ? 16 : 32));
+      band.current.geometry.setPoints(curve.getPoints(isMobile ? 12 : 24));
       ang.copy(card.current.angvel());
       rot.copy(card.current.rotation());
       card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
@@ -175,7 +186,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
                 map={materials.base.map}
-                map-anisotropy={16}
+                map-anisotropy={isMobile ? 4 : 8}
                 clearcoat={isMobile ? 0 : 1}
                 clearcoatRoughness={0.15}
                 roughness={0.9}
@@ -192,7 +203,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
         <meshLineMaterial
           color="white"
           depthTest={false}
-          resolution={isMobile ? [1000, 2000] : [1000, 1000]}
+          resolution={isMobile ? [800, 1600] : [1000, 1000]}
           useMap
           map={texture}
           repeat={isMobile ? [-2, 1] : [-3, 1]}

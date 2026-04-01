@@ -31,7 +31,7 @@ export default function ProjectCard({ project }) {
         className={styles.spotlight}
         style={{
           opacity,
-          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(0,0,0,0.06), transparent 40%)`,
+          background: `radial-gradient(800px circle at ${position.x}px ${position.y}px, rgba(0,0,0,0.13), transparent 50%)`,
         }}
         aria-hidden="true"
       />

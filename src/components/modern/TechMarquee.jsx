@@ -1,8 +1,7 @@
-import { motion } from "framer-motion";
 import { portfolioData } from "../../data/portfolio";
 import styles from "./TechMarquee.module.css";
 
-// Flatten skills for marquee
+// Flatten all skills
 const techs = [
   ...portfolioData.skills.frontend,
   ...portfolioData.skills.backend,
@@ -10,22 +9,24 @@ const techs = [
   ...portfolioData.skills.scripting,
 ];
 
-const MarqueeGroup = () => (
-  <div className={styles.marqueeGroup}>
-    {techs.map((tech, i) => (
-      <span key={i} className={styles.techItem}>
-        {tech}
-      </span>
-    ))}
-  </div>
-);
+// Two groups are enough for a seamless loop
+function MarqueeGroup() {
+  return (
+    <div className={styles.marqueeGroup} aria-hidden="true">
+      {techs.map((tech, i) => (
+        <span key={i} className={styles.techItem}>
+          {tech}
+        </span>
+      ))}
+    </div>
+  );
+}
 
 export default function TechMarquee() {
   return (
-    <div className={styles.marqueeContainer}>
+    <div className={styles.marqueeContainer} aria-label="Technology stack">
       <div className={styles.track}>
-        <MarqueeGroup />
-        <MarqueeGroup />
+        {/* Duplicate for seamless loop — CSS handles it, no JS needed */}
         <MarqueeGroup />
         <MarqueeGroup />
       </div>

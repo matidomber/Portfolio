@@ -70,7 +70,14 @@ body {
   border-bottom: var(--win-border-sunken-bottom);
 }
 
-/* Scrollbar hiding if needed */
+/* Scrollbar hiding */
 ::-webkit-scrollbar {
   display: none;
+}
+
+/* About section highlight spans (used by parseHighlights) */
+.highlight {
+  font-style: italic;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 1px;
 }

@@ -1,43 +1,53 @@
-import { motion as Motion } from "framer-motion";
+import { lazy, Suspense } from "react";
 import ProjectCard from "./ProjectCard";
-import Lanyard from "../../lanyard/lanyard";
 import { portfolioData } from "../../data/portfolio";
 import styles from "./BentoGrid.module.css";
+
+// Lazy load Lanyard — splits it into a separate chunk
+// The 3D scene (card.glb ~3.3MB + lanyard.png ~1.6MB) loads asynchronously
+// so the rest of the page is immediately interactive
+const Lanyard = lazy(() => import("../../lanyard/lanyard"));
+
+function LanyardSkeleton() {
+  return (
+    <div className={styles.lanyardSkeleton}>
+      <div className={styles.skeletonCard} />
+    </div>
+  );
+}
 
 export default function BentoGrid({ projects }) {
   return (
     <div className={styles.grid}>
-      {/* Primary Feature - Lanyard Card */}
-      <Motion.div
+      {/* Primary Feature — Lanyard Card */}
+      <div
         className={`${styles.cell} ${styles.cellLarge}`}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
         style={{
           background: "transparent",
           boxShadow: "none",
           overflow: "visible",
-        }} // Override for 3D context
+        }}
       >
-        <Lanyard position={[0, -6, 15]} gravity={[0, -40, 0]} />
-      </Motion.div>
+        <Suspense fallback={<LanyardSkeleton />}>
+          <Lanyard position={[0, -6, 15]} gravity={[0, -40, 0]} />
+        </Suspense>
+      </div>
 
       {/* Project Cards */}
       {projects.map((project, index) => (
-        <Motion.div
+        <div
           key={project.id}
           className={styles.cell}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: index * 0.1 }}
+          style={{ animationDelay: `${index * 80}ms` }}
         >
           <ProjectCard project={project} />
-        </Motion.div>
+        </div>
       ))}
 
       {/* Stack Highlights */}
       <div className={`${styles.cell} ${styles.cellTall}`}>
         <div className={styles.decor}>
-          <span>STACK</span>
+          <span className={styles.decorLabel}>STACK</span>
           <ul>
             {portfolioData.stackHighlights.map(s => (
               <li key={s}>{s}</li>
