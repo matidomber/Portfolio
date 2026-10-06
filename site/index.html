@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mateusz Dombrowski · BaseLinker, automatyzacje i strony dla sklepów</title>
+<meta name="description" content="Automatyzuję BaseLinkera i porządkuję dane sklepów: importy plików od dostawców, automatyczne akcje, oferty Allegro. Start od 250 zł netto, odpowiedź w 24 godziny w dni robocze.">
+<meta name="theme-color" content="#c8a679">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://mateuszdombrowski.com/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:title" content="Mateusz Dombrowski · BaseLinker, automatyzacje i strony dla sklepów">
+<meta property="og:description" content="Automatyzuję BaseLinkera i porządkuję dane sklepów: importy plików od dostawców, automatyczne akcje, oferty Allegro. Start od 250 zł netto, odpowiedź w 24 godziny w dni robocze.">
+<meta property="og:url" content="https://mateuszdombrowski.com/">
+<meta property="og:image" content="https://mateuszdombrowski.com/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@700..900&family=Libre+Barcode+128&family=Mona+Sans:wdth,wght@100..125,400..900&family=Reddit+Mono:wght@400..700&display=swap">
+<link rel="stylesheet" href="assets/css/styles.css?v=20261006j">
+<script>(function(d){d.classList.add('js');try{var f=/[?&]loader/.test(location.search);if(f||(!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('md-ld'))){d.classList.add('ld-on')}}catch(e){}})(document.documentElement)</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Mateusz Dombrowski","url":"https://mateuszdombrowski.com/","email":"mailto:kontakt@mateuszdombrowski.com","jobTitle":"BaseLinker, automatyzacje i strony dla sklepów","sameAs":["https://github.com/matidomber","https://www.linkedin.com/in/mateusz-dombrowski-61b95734a/","https://useme.com/pl/roles/contractor/550126/"]}
+</script>
+</head>
+<body>
+<div class="loader" id="loader" aria-hidden="true">
+  <svg class="ld-svg" viewBox="0 0 400 400">
+    <defs><filter id="ld-blur" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="9"/></filter></defs>
+    <g class="ld-box" id="ld-box">
+      <ellipse class="ld-shadow" cx="200" cy="330" rx="118" ry="24" filter="url(#ld-blur)"/>
+      <polygon class="ld-flap ld-flap-b1" id="ld-f1" points="100,160 200,110 165,62 65,112"/>
+      <polygon class="ld-flap ld-flap-b2" id="ld-f2" points="200,110 300,160 332,104 232,54"/>
+      <polygon class="ld-inside" points="200,110 300,160 200,210 100,160"/>
+      <g class="ld-file" id="ld-p1"><rect x="-17" y="-22" width="34" height="44" rx="2"/><path d="M-10 -12h20M-10 -4h20M-10 4h14M-10 12h18"/></g>
+      <g class="ld-file" id="ld-p2"><rect x="-17" y="-22" width="34" height="44" rx="2"/><path d="M-10 -12h20M-10 -4h16M-10 4h20M-10 12h12"/></g>
+      <g class="ld-file" id="ld-p3"><rect x="-17" y="-22" width="34" height="44" rx="2"/><path d="M-10 -12h18M-10 -4h20M-10 4h20M-10 12h16"/></g>
+      <polygon class="ld-left" points="100,160 200,210 200,320 100,270"/>
+      <polygon class="ld-right" points="200,210 300,160 300,270 200,320"/>
+      <polygon class="ld-flap ld-flap-f1" id="ld-f3" points="300,160 200,210 238,186 338,136"/>
+      <polygon class="ld-flap ld-flap-f2" id="ld-f4" points="200,210 100,160 68,118 168,168"/>
+      <polyline class="ld-tape" id="ld-tape" pathLength="1" points="150,135 250,185 250,242"/>
+      <g class="ld-label" id="ld-label" transform="matrix(1 -0.5 0 1 200 210)"><g class="ld-label-in"><rect x="12" y="62" width="64" height="40" rx="2"/><text x="20" y="80">MD</text><path d="M20 88v8M23 88v8M27 88v8M29 88v8M33 88v8M38 88v8M40 88v8M44 88v8M49 88v8M51 88v8M55 88v8M60 88v8M62 88v8M66 88v8"/></g></g>
+    </g>
+  </svg>
+  <p class="ld-text" id="ld-text">Pakuję stronę</p>
+</div>
+<a class="skip" href="#main">Przejdź do treści</a>
+
+<header class="top">
+  <a class="brand" href="#main">Mateusz Dombrowski</a>
+  <nav class="menu" aria-label="Główna">
+    <a href="#uslugi">Usługi</a>
+    <a href="#przyklad">Przykład</a>
+    <a href="#jak">Jak pracuję</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <a class="btn" href="#kontakt">Opisz swój proces</a>
+</header>
+
+<nav class="rail" aria-hidden="true">
+  <p class="rail-title">Trasa paczki</p>
+  <div class="rail-track">
+    <i class="rail-line"></i><i class="rail-fill"></i>
+    <div class="rail-parcel"><div class="carton" style="--s:15px"><div class="cube"><i class="f fr"></i><i class="f bk"></i><i class="f lf"></i><i class="f rt"></i><i class="f tp"></i><i class="f bt"></i></div></div></div>
+    <ol class="rail-stops">
+      <li data-target="#main"><a href="#main" tabindex="-1"><i></i><span>Start</span></a></li>
+      <li data-target="#problem"><a href="#problem" tabindex="-1"><i></i><span>Problem</span></a></li>
+      <li data-target="#uslugi"><a href="#uslugi" tabindex="-1"><i></i><span>Usługi</span></a></li>
+      <li data-target="#przyklad"><a href="#przyklad" tabindex="-1"><i></i><span>Przykład</span></a></li>
+      <li data-target="#jak"><a href="#jak" tabindex="-1"><i></i><span>Jak pracuję</span></a></li>
+      <li data-target="#o-mnie"><a href="#o-mnie" tabindex="-1"><i></i><span>O mnie</span></a></li>
+      <li data-target="#projekty"><a href="#projekty" tabindex="-1"><i></i><span>Projekty</span></a></li>
+      <li data-target="#faq"><a href="#faq" tabindex="-1"><i></i><span>FAQ</span></a></li>
+      <li data-target="#kontakt"><a href="#kontakt" tabindex="-1"><i></i><span>Kontakt</span></a></li>
+    </ol>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+
+  <!-- ETYKIETA NADAWCZA -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="sticker-wrap">
+      <div class="sticker-shadow" aria-hidden="true"></div>
+      <div class="sticker">
+        <i class="glare" aria-hidden="true"><b></b></i>
+        <div class="hangtag" aria-hidden="true">
+          <i class="ht-seg"></i><i class="ht-seg"></i>
+          <i class="ht-tape"></i>
+          <div class="ht-card"><div class="ht-face"><img src="assets/img/mateusz-tag.jpg" alt="" width="280" height="280" decoding="async" draggable="false"><b>Mateusz</b><small>informatyk, automatyzacje</small></div></div>
+        </div>
+        <i class="printhead" aria-hidden="true"></i>
+        <div class="tape tape-hero" aria-hidden="true"><span>Ostrożnie: dane sklepu</span></div>
+        <div class="frame">
+          <div class="cell from">
+            <img class="from-photo" src="assets/img/mateusz-tag.jpg" alt="" width="280" height="280" decoding="async">
+            <div><span class="cap">Nadawca</span><strong class="who">Mateusz Dombrowski</strong></div>
+            <span class="what">BaseLinker, automatyzacje i strony dla sklepów</span>
+          </div>
+          <div class="cell route">
+            <span class="route-big">24 h</span>
+            <span class="route-small">czas odpowiedzi<br>w dni robocze</span>
+          </div>
+          <div class="cell head">
+            <h1 id="h1"><span class="ln">Sklep na BaseLinkerze</span> <span class="ln"><span class="mark">bez ręcznego</span></span> <span class="ln"><span class="mark">przepisywania.</span></span></h1>
+          </div>
+          <div class="cell to">
+            <span class="cap">Odbiorca</span><strong class="who">Twój sklep</strong>
+            <p>Na co dzień jestem informatykiem w firmie handlowej. Piszę automatyzacje w n8n i ustawiam automatyczne akcje w BaseLinkerze, żeby powtarzalna praca robiła się sama. To samo zrobię w Twoim sklepie. Dane, które budzą wątpliwości, oznaczam do sprawdzenia, zamiast zgadywać.</p>
+          </div>
+          <div class="cell code">
+            <span class="cap">Numer przesyłki</span>
+            <span class="bars" data-code="mateuszdombrowski.com" aria-hidden="true"></span>
+            <span class="human">MATEUSZDOMBROWSKI.COM</span>
+          </div>
+          <div class="cell actions">
+            <a class="btn" href="#kontakt">Opisz swój proces</a>
+            <a class="more" href="#przyklad">Zobacz przykład</a>
+            <span class="meta">Faktura VAT przez Useme · Cena znana przed startem</span>
+          </div>
+        </div>
+      </div>
+      <div class="peek" aria-hidden="true">
+        <div class="receipt">
+          <p class="r-title">RAPORT</p>
+          <p>3 pliki · 15 rekordów</p>
+          <hr>
+          <p class="r-row"><span>OK</span><span>7</span></p>
+          <p class="r-row"><span>Do sprawdzenia</span><span>4</span></p>
+          <p class="r-row"><span>Błąd</span><span>4</span></p>
+          <hr>
+          <p>Nic nie zostało usunięte.</p>
+        </div>
+      </div>
+    </div>
+<div class="print print-recycle" aria-hidden="true">
+      <svg viewBox="0 0 100 86"><g stroke-width="6" fill="none"><path d="M54.5 13.8 82.6 63"/><path d="M81 76H25"/><path d="M14.5 68.2 42.6 19"/></g><path d="M87.5 71.7 88.5 57.2 74.7 65.2z"/><path d="M15 76 27 68v16z"/><path d="M47.5 10.3 48.5 24.8 34.7 16.8z"/><text x="50" y="62" text-anchor="middle">20</text></svg>
+      <b>PAP</b><span>tektura falista</span>
+    </div>
+    <div class="print print-handling" aria-hidden="true">
+      <svg viewBox="0 0 64 64"><rect x="8" y="52" width="48" height="5"/><path d="M22 50V22M42 50V22" stroke-width="5" fill="none"/><path d="M22 7l-9 17h18zM42 7l-9 17h18z"/></svg>
+      <svg viewBox="0 0 64 64"><path d="M17 7h30c0 15-5 25-15 27C22 32 17 22 17 7z"/><path d="M29 9l4 7-4 5 4 6" fill="none" stroke="#c8a679" stroke-width="2.6" stroke-linejoin="round"/><path d="M32 33v18" fill="none" stroke-width="4.5"/><rect x="20" y="51" width="24" height="5" rx="1"/></svg>
+      <svg viewBox="0 0 64 64"><path d="M7 33a25 23 0 0 1 50 0z"/><path d="M32 33v15a5.5 5.5 0 0 1-11 0" fill="none" stroke-width="4.5" stroke-linecap="round"/><path d="M14 6l-3 7M27 3l-3 7M40 3l-3 7M53 6l-3 7" fill="none" stroke-width="3.5" stroke-linecap="round"/></svg>
+    </div>
+  </section>
+
+  <!-- TAŚMY -->
+  <div class="tapes" aria-hidden="true">
+    <div class="tape-run tape-run-a"><div class="tape-track"><span>Nie przepisywać ręcznie</span><span>Nie przepisywać ręcznie</span><span>Nie przepisywać ręcznie</span><span>Nie przepisywać ręcznie</span><span>Nie przepisywać ręcznie</span><span>Nie przepisywać ręcznie</span></div></div>
+    <div class="tape-run tape-run-b"><div class="tape-track"><span>Ostrożnie: dane sklepu</span><span>Ostrożnie: dane sklepu</span><span>Ostrożnie: dane sklepu</span><span>Ostrożnie: dane sklepu</span><span>Ostrożnie: dane sklepu</span><span>Ostrożnie: dane sklepu</span></div></div>
+  </div>
+
+  <!-- BRZMI ZNAJOMO -->
+  <section class="pain" id="problem" aria-labelledby="h-pain">
+    <div class="wrap pain-grid">
+      <div class="form-sheet">
+        <div class="form-head"><h2 id="h-pain">Brzmi znajomo?</h2></div>
+        <ul class="checks">
+          <li><span class="box" aria-hidden="true"><svg viewBox="0 0 40 40"><path pathLength="1" d="M7 21c3 2 6 5 9 9 4-9 10-18 19-25"/></svg></span><span>Każdy dostawca przysyła plik w innym formacie, a ktoś przepisuje go ręcznie.</span></li>
+          <li><span class="box" aria-hidden="true"><svg viewBox="0 0 40 40"><path pathLength="1" d="M6 20c3 3 7 6 9 10 5-10 11-19 20-26"/></svg></span><span>Stany w BaseLinkerze nie zgadzają się z tym, co widać na Allegro.</span></li>
+          <li><span class="box" aria-hidden="true"><svg viewBox="0 0 40 40"><path pathLength="1" d="M8 22c2 2 5 5 8 8 5-11 10-18 18-25"/></svg></span><span>Zamówienia stoją w złym statusie i nikt nie wie dlaczego.</span></li>
+          <li><span class="box" aria-hidden="true"><svg viewBox="0 0 40 40"><path pathLength="1" d="M7 20c3 3 6 6 8 10 6-11 12-19 20-25"/></svg></span><span>Numery przesyłek i dane z ERP nie wracają tam, gdzie powinny.</span></li>
+        </ul>
+      </div>
+      <div class="verdict">
+        <svg class="stamp" viewBox="0 0 220 220" aria-hidden="true">
+          <defs>
+            <path id="stamp-c" d="M110,110 m-80,0 a80,80 0 1,1 160,0 a80,80 0 1,1 -160,0"/>
+            <filter id="ink" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" seed="4" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.4 1.75" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter>
+          </defs>
+          <g filter="url(#ink)">
+            <circle cx="110" cy="110" r="104" fill="none" stroke="currentColor" stroke-width="6"/>
+            <circle cx="110" cy="110" r="64" fill="none" stroke="currentColor" stroke-width="3"/>
+            <text class="stamp-ring"><textPath href="#stamp-c" textLength="494" lengthAdjust="spacing">MATEUSZ DOMBROWSKI · AUTOMATYZACJE ·</textPath></text>
+            <text class="stamp-big" x="110" y="108" text-anchor="middle">DA SIĘ</text>
+            <text class="stamp-small" x="110" y="134" text-anchor="middle">USTAWIĆ</text>
+          </g>
+        </svg>
+        <p class="verdict-text">Da się to ustawić tak, żeby działało samo, a człowiek sprawdzał tylko wyjątki.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CENNIK -->
+  <section class="services" id="uslugi" aria-labelledby="h-uslugi">
+    <div class="wrap">
+      <div class="price-sheet">
+        <div class="sheet-head">
+          <h2 id="h-uslugi">W czym pomogę</h2>
+          <p>Ceny netto. Każdą wycenę przygotowuję po obejrzeniu próbki danych. Termin podaję w ofercie, zwykle do 14 dni roboczych.</p>
+        </div>
+        <ul class="price-list">
+          <li class="price-row">
+            <div class="carton-cell" aria-hidden="true">
+              <div class="carton" style="--s:46px"><div class="cube"><i class="f fr"><b>A</b></i><i class="f bk"></i><i class="f lf"></i><i class="f rt"></i><i class="f tp"><u class="flap fl"></u><u class="flap fr2"></u></i><i class="f bt"></i></div></div>
+              <span class="gab">gabaryt A</span>
+            </div>
+            <div class="svc"><h3>Pakiet startowy</h3><p>10 standardowych ofert Allegro. Dobry sposób, żeby sprawdzić współpracę na małym zleceniu.</p></div>
+            <div class="price"><strong>250 zł</strong><small>za cały pakiet</small></div>
+          </li>
+          <li class="price-row">
+            <div class="carton-cell" aria-hidden="true">
+              <div class="carton" style="--s:62px"><div class="cube"><i class="f fr"><b>B</b></i><i class="f bk"></i><i class="f lf"></i><i class="f rt"></i><i class="f tp"><u class="flap fl"></u><u class="flap fr2"></u></i><i class="f bt"></i></div></div>
+              <span class="gab">gabaryt B</span>
+            </div>
+            <div class="svc"><h3>Pliki dostawców w magazynie BaseLinkera</h3><p>Biorę pliki od producentów i hurtowni (CSV, XLS, XML), ujednolicam kolumny, sprawdzam kody, ceny, stany i duplikaty. Dostajesz listę rzeczy do poprawy, import do magazynu i instrukcję, jak powtórzyć aktualizację.</p></div>
+            <div class="price"><strong>od 1 500 zł</strong><small>do trzech formatów plików</small></div>
+          </li>
+          <li class="price-row">
+            <div class="carton-cell" aria-hidden="true">
+              <div class="carton" style="--s:76px"><div class="cube"><i class="f fr"><b>C</b></i><i class="f bk"></i><i class="f lf"></i><i class="f rt"></i><i class="f tp"><u class="flap fl"></u><u class="flap fr2"></u></i><i class="f bt"></i></div></div>
+              <span class="gab">gabaryt C</span>
+            </div>
+            <div class="svc"><h3>Strony i aplikacje</h3><p>Strona, która zbiera zapytania z formularza i szybko działa na telefonie. Aplikacje webowe w React, Node.js i PostgreSQL.</p></div>
+            <div class="price"><strong>od 2 900 zł</strong><small>aplikacje po rozmowie o zakresie</small></div>
+          </li>
+          <li class="price-row">
+            <div class="carton-cell" aria-hidden="true">
+              <div class="clock"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27" fill="none" stroke="currentColor" stroke-width="4"/><path class="clock-hand" d="M32 32V14" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M32 32l11 7" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></div>
+              <span class="gab">na godziny</span>
+            </div>
+            <div class="svc"><h3>Automatyczne akcje i bieżąca obsługa</h3><p>Automatyczne akcje i statusy od zera albo naprawa tych, które działają „prawie”. Masowa edycja ofert Allegro, Erli i Empik: parametry, EAN, SKU, cenniki dostaw.</p></div>
+            <div class="price"><strong>100 zł / h</strong><small>standardowa oferta Allegro: 25 zł</small></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+<div class="print print-mark" aria-hidden="true"><b>MD</b><span class="pm-rule"></span><span>mateuszdombrowski.com</span><span>Spakowane w Polsce</span></div>
+  </section>
+
+  <!-- PRZYKŁAD -->
+  <section class="demo" id="przyklad" aria-labelledby="h-demo">
+    <div class="wrap">
+      <div class="demo-head">
+        <h2 id="h-demo">Trzy formaty. Jeden czytelny wynik.</h2>
+        <div class="demo-lead">
+          <p>Trzech dostawców opisuje te same produkty, ale każdy inaczej nazywa kolumny i inaczej zapisuje ceny. Zobacz, co z tym robię.</p>
+          <button class="btn" type="button" id="print">Drukuj raport</button>
+          <p class="hint">Kartki możesz przesuwać.</p>
+        </div>
+      </div>
+      <div class="desk" id="desk">
+        <div class="sheets">
+          <figure class="sheet s1"><i class="pin" aria-hidden="true"></i><figcaption>dostawca_a.csv <span>separator ;</span></figcaption>
+<pre>Kod;Nazwa;Cena;Ilosc
+<span class="hl" data-at="1"><i></i>00101</span>;Zawór kulowy;19,90;12
+00102;Kolanko mosiężne;8,50;30
+00103;Uszczelka;0,00;0
+<span class="pen" data-at="4"><svg viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M10 23C11 9 42 4 67 6s31 9 27 19c-4 10-37 12-59 10S4 31 8 16"/></svg>;</span>Wąż przyłączeniowy;25,00;4
+00105;Trójnik;<span class="pen" data-at="6"><svg viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M10 23C11 9 42 4 67 6s31 9 27 19c-4 10-37 12-59 10S4 31 8 16"/></svg>12,345</span>;10</pre></figure>
+          <figure class="sheet s2"><i class="pin" aria-hidden="true"></i><figcaption>dostawca_b.csv <span>separator ,</span></figcaption>
+<pre>SKU,Product,Price,Stock
+<span class="hl" data-at="8"><i></i>00101</span>,Zawór kulowy B,20.50,8
+00202,Filtr siatkowy,42.90,6
+00203,Redukcja,7.25,20
+00204,Manometr,<span class="pen" data-at="12"><svg viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M10 23C11 9 42 4 67 6s31 9 27 19c-4 10-37 12-59 10S4 31 8 16"/></svg>brak</span>,3
+00205,Złączka,5.00,<span class="pen" data-at="14"><svg viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M10 23C11 9 42 4 67 6s31 9 27 19c-4 10-37 12-59 10S4 31 8 16"/></svg>-2</span></pre></figure>
+          <figure class="sheet s3"><i class="pin" aria-hidden="true"></i><figcaption>dostawca_c.csv <span>separator ;</span></figcaption>
+<pre>Indeks;Produkt;Cena_PLN;Stan
+00301;Taśma uszczelniająca;3,99;100
+00302;Uchwyt rurowy;2;40
+00303;Syfon;35,00;7
+<span class="hl" data-at="19"><i></i>00304</span>;Korek;4,10;8
+<span class="hl" data-at="20"><i></i>00304</span>;Korek wariant B;4,20;9</pre></figure>
+<figure class="sheet legend"><i class="pin" aria-hidden="true"></i><figcaption>Legenda</figcaption>
+<p><span class="lg-hl" aria-hidden="true"></span><span>Żółty marker: kod powtarza się w plikach. Rekord czeka na Twoją decyzję.</span></p>
+<p><span class="lg-pen" aria-hidden="true"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><path d="M10 23C11 9 42 4 67 6s31 9 27 19c-4 10-37 12-59 10S4 31 8 16"/></svg></span><span>Czerwone kółko: błąd, np. brak kodu, zła cena albo ujemna ilość.</span></p>
+</figure>
+        </div>
+        <div class="printer">
+          <div class="printer-body" aria-hidden="true"><i class="led"></i><span class="printer-name">MD-80</span></div>
+          <div class="paper-out">
+            <div class="roll" id="roll">
+              <div class="receipt receipt-full">
+                <p class="r-title">RAPORT IMPORTU</p>
+                <p class="r-sub">Mateusz Dombrowski</p>
+                <p>3 pliki · 15 rekordów</p>
+                <hr>
+                <p class="r-row" data-line="1"><span>00101 Zawór kulowy</span><span>19,90</span></p>
+                <p class="r-note w">? ten sam kod u dostawcy B</p>
+                <p class="r-row"><span>00102 Kolanko mosiężne</span><span>8,50</span></p>
+                <p class="r-row"><span>00103 Uszczelka</span><span>0,00</span></p>
+                <p class="r-row" data-line="4"><span>····· Wąż przyłączeniowy</span><span>25,00</span></p>
+                <p class="r-note b">× brak kodu produktu</p>
+                <p class="r-row" data-line="6"><span>00105 Trójnik</span><span>12,345</span></p>
+                <p class="r-note b">× cena: 3 miejsca po przecinku</p>
+                <p class="r-row" data-line="8"><span>00101 Zawór kulowy B</span><span>20,50</span></p>
+                <p class="r-note w">? ten sam kod u dostawcy A</p>
+                <p class="r-row"><span>00202 Filtr siatkowy</span><span>42,90</span></p>
+                <p class="r-row"><span>00203 Redukcja</span><span>7,25</span></p>
+                <p class="r-row" data-line="12"><span>00204 Manometr</span><span>brak</span></p>
+                <p class="r-note b">× cena: brak liczby</p>
+                <p class="r-row" data-line="14"><span>00205 Złączka</span><span>5,00</span></p>
+                <p class="r-note b">× ilość ujemna: -2</p>
+                <p class="r-row"><span>00301 Taśma uszczelniająca</span><span>3,99</span></p>
+                <p class="r-row"><span>00302 Uchwyt rurowy</span><span>2,00</span></p>
+                <p class="r-row"><span>00303 Syfon</span><span>35,00</span></p>
+                <p class="r-row" data-line="19"><span>00304 Korek</span><span>4,10</span></p>
+                <p class="r-row" data-line="20"><span>00304 Korek wariant B</span><span>4,20</span></p>
+                <p class="r-note w">? kod dwa razy w jednym pliku</p>
+                <hr>
+                <div class="r-totals"><p><span class="dot">7</span>OK</p><p><span class="dot">4</span>do sprawdzenia</p><p><span class="dot">4</span>z błędem</p></div>
+                <hr>
+                <p>Nic nie zostało usunięte. Powtórzone kody czekają na Twoją decyzję.</p>
+                <span class="bars bars-r" data-code="RAPORT-15-7-4-4" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="sr-only" id="demo-live" aria-live="polite"></p>
+      <p class="foot-note">Dane fikcyjne. Narzędzie działa lokalnie i nie zmienia plików wejściowych.</p>
+    </div>
+<div class="print print-weight" aria-hidden="true"><span class="pw-title">Dane tej przesyłki</span><dl><dt>Waga strony</dt><dd data-pw="kb">…</dd><dt>Zapytania</dt><dd data-pw="req">…</dd><dt>Wczytana w</dt><dd data-pw="time">…</dd></dl><span class="pw-note">Mierzone na żywo w Twojej przeglądarce.</span></div>
+  </section>
+
+  <!-- ŚLEDZENIE PRZESYŁKI -->
+  <section class="steps" id="jak" aria-labelledby="h-jak">
+    <div class="wrap">
+      <div class="track">
+        <div class="track-head">
+          <h2 id="h-jak" class="kin">Jak pracuję</h2>
+        </div>
+        <div class="stages-wrap">
+          <div class="line" aria-hidden="true"><i class="line-fill"></i></div>
+          <div class="parcel" aria-hidden="true"><div class="carton" style="--s:30px"><div class="cube"><i class="f fr"></i><i class="f bk"></i><i class="f lf"></i><i class="f rt"></i><i class="f tp"></i><i class="f bt"></i></div></div></div>
+          <ol class="stages">
+            <li class="stage"><b>Zgłoszenie</b><p>Opisujesz, co dziś robisz ręcznie, i wysyłasz próbkę danych.</p></li>
+            <li class="stage"><b>Wycena</b><p>Dostajesz zakres, cenę i termin. Cena nie zmienia się w trakcie, chyba że zmienisz zakres.</p></li>
+            <li class="stage"><b>Realizacja</b><p>Robię i testuję na Twoich danych. Wątpliwe rekordy oznaczam do sprawdzenia.</p></li>
+            <li class="stage"><b>Doręczono</b><p>Oddaję gotową pracę z instrukcją. Jedna tura poprawek jest w cenie.</p></li>
+          </ol>
+        </div>
+        <p class="track-note"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 7V5a4 4 0 1 1 8 0v2h1v8H3V7h1zm2 0h4V5a2 2 0 1 0-4 0v2z" fill="currentColor"/></svg>Do BaseLinkera wystarczy mi konto współpracownika z ograniczonymi uprawnieniami. Haseł do Twoich kont nie potrzebuję.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KIM JESTEM -->
+  <section class="about" id="o-mnie" aria-labelledby="h-about">
+    <div class="wrap">
+      <div class="id-card">
+        <div class="id-photo"><img src="assets/img/mateusz.jpg" alt="Mateusz Dombrowski przy biurku" width="840" height="1008" loading="lazy" decoding="async"></div>
+        <div class="id-text">
+          <h2 id="h-about" class="kin">Kim jestem</h2>
+          <p>Mateusz Dombrowski, inżynier informatyki (UKW w Bydgoszczy). Od marca 2026 jestem informatykiem w firmie handlowej: piszę automatyzacje w n8n i automatycznych akcjach BaseLinkera, zajmuję się też helpdeskiem. Od 2025 roku buduję strony i aplikacje webowe w React, Next.js, Node.js i PostgreSQL, m.in. nową stronę hurtowni elektrotechnicznej DOKO. Zlecenia realizuję po godzinach, dlatego odpowiadam w ciągu 24 godzin w dni robocze, a nie od ręki.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJEKTY -->
+  <section class="projects" id="projekty" aria-labelledby="h-proj">
+    <div class="wrap">
+      <h2 id="h-proj" class="kin">Projekty</h2>
+      <div class="proj-grid">
+        <article class="polaroid feat">
+          <i class="tape-bit" aria-hidden="true"></i>
+          <img src="assets/img/doko.jpg" alt="Strona główna doko.pl, hurtowni elektrotechnicznej DOKO" width="1200" height="675" loading="lazy" decoding="async">
+          <div class="pol-text">
+            <span class="kind">realizacja, strona firmowa</span>
+            <h3>DOKO, hurtownia elektrotechniczna</h3>
+            <p>Nowa strona firmowa dla hurtowni elektrotechnicznej z siedmioma oddziałami w Polsce. Next.js i Payload CMS.</p>
+            <a href="https://doko.pl/" target="_blank" rel="noopener">Zobacz doko.pl</a>
+          </div>
+        </article>
+        <article class="polaroid">
+          <i class="tape-bit" aria-hidden="true"></i>
+          <img src="assets/img/kuznia.jpg" alt="Strona główna systemu Kuźnia Fitness" width="1200" height="924" loading="lazy" decoding="async">
+          <div class="pol-text">
+            <span class="kind">projekt inżynierski</span>
+            <h3>Kuźnia Fitness</h3>
+            <p>System dla siłowni: rezerwacje, sklep, panel administratora. React, Node.js, Express, PostgreSQL.</p>
+            <a href="https://github.com/matidomber/GYM-main" target="_blank" rel="noopener">Kod na GitHubie</a>
+          </div>
+        </article>
+        <article class="polaroid">
+          <i class="tape-bit" aria-hidden="true"></i>
+          <img src="assets/img/hireup.jpg" alt="Strona główna platformy HireUP" width="1200" height="675" loading="lazy" decoding="async">
+          <div class="pol-text">
+            <span class="kind">projekt studencki</span>
+            <h3>HireUP</h3>
+            <p>Platforma ogłoszeń z czatem w czasie rzeczywistym i ocenami. React, Firebase.</p>
+            <a href="https://github.com/matidomber/HIREUP" target="_blank" rel="noopener">Kod na GitHubie</a>
+          </div>
+        </article>
+      </div>
+    </div>
+<div class="print print-vertical" aria-hidden="true">Nie przepisywać ręcznie</div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq" aria-labelledby="h-faq">
+    <div class="wrap faq-grid">
+      <div class="faq-side">
+        <h2 id="h-faq" class="kin">FAQ</h2>
+        <p>Krótko o rozliczeniach, terminach i dostępie do kont.</p>
+      </div>
+      <div class="faq-label">
+        <details><summary>Wystawiasz fakturę?</summary><div class="ans"><p>Tak. Rozliczam się przez Useme: wystawiają fakturę VAT, a płatność czeka u nich do odbioru pracy.</p></div></details>
+        <details><summary>Ile to trwa?</summary><div class="ans"><p>Termin podaję w ofercie po obejrzeniu danych. Typowy import z plików dostawców zajmuje do 14 dni roboczych.</p></div></details>
+        <details><summary>Pracujesz na etacie. Znajdziesz czas?</summary><div class="ans"><p>Tak. Pracuję wieczorami i w weekendy, a w dni robocze odpowiadam w ciągu 24 godzin. Nie biorę dyżurów w godzinach 8–16.</p></div></details>
+        <details><summary>Potrzebujesz moich haseł?</summary><div class="ans"><p>Nie. W BaseLinkerze wystarczy konto współpracownika z ograniczonymi uprawnieniami.</p></div></details>
+        <details><summary>Co, jeśli dane są niekompletne albo z błędami?</summary><div class="ans"><p>Nie zgaduję. Takie rekordy oznaczam do sprawdzenia, a Ty dostajesz listę z numerem wiersza i powodem.</p></div></details>
+        <details><summary>Mogę zacząć od czegoś małego?</summary><div class="ans"><p>Tak. Dobry start to pakiet 10 ofert Allegro albo jeden plik dostawcy do uporządkowania. Darmowych testów nie robię, małe płatne etapy chętnie.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIST PRZEWOZOWY -->
+  <section class="contact" id="kontakt" aria-labelledby="h-kontakt">
+    <div class="wrap contact-grid">
+      <div class="contact-side">
+        <h2 id="h-kontakt">Opisz, co chcesz usprawnić</h2>
+        <p>Napisz, co dziś robisz ręcznie, jak często i w jakich systemach. Odpiszę w ciągu 24 godzin w dzień roboczy, z pytaniami albo od razu z propozycją zakresu.</p>
+        <ul class="alt">
+          <li><a href="https://useme.com/pl/roles/contractor/550126/" target="_blank" rel="noopener">Wolisz Useme? Zobacz mój profil</a></li>
+          <li>E-mail: <a href="mailto:kontakt@mateuszdombrowski.com">kontakt@mateuszdombrowski.com</a></li>
+        </ul>
+      </div>
+      <div class="waybill">
+        <form class="frame" id="form" data-key="f60629bd-dc65-4b53-b53e-dfbd65c44a0f" novalidate>
+          <div class="field"><label for="f-name">Imię</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field full"><label for="f-msg">Co chcesz usprawnić?</label><textarea id="f-msg" name="message" rows="5" required placeholder="Np. co tydzień dostajemy 3 pliki CSV od dostawców i ręcznie aktualizujemy ceny w BaseLinkerze."></textarea></div>
+          <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="send">
+            <button class="btn" type="submit">Wyślij wiadomość</button>
+            <p class="form-msg" id="form-msg" role="status"></p>
+          </div>
+          <svg class="stamp stamp-sent" viewBox="0 0 220 220" aria-hidden="true"><g filter="url(#ink)"><rect x="12" y="62" width="196" height="96" rx="10" fill="none" stroke="currentColor" stroke-width="7"/><text class="stamp-big" x="110" y="124" text-anchor="middle">WYSŁANO</text></g></svg>
+        </form>
+      </div>
+    </div>
+<div class="print print-post" aria-hidden="true">
+      <div class="stamp-wrap"><div class="stamp-post"><div class="sp-in"><svg viewBox="0 0 64 64"><path d="M32 8 56 20v26L32 58 8 46V20z" fill="#c8a679" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M8 20l24 12 24-12M32 32v26" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M20 14l24 12v8" fill="none" stroke="#ffd60a" stroke-width="5"/></svg><b>POLSKA</b><small>list przewozowy</small></div></div></div>
+      <svg class="postmark" viewBox="0 0 220 120"><defs><path id="pm-c" d="M70,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><g fill="none" stroke="currentColor" stroke-width="3"><circle cx="70" cy="60" r="52"/><circle cx="70" cy="60" r="34"/><path d="M128 34c12-8 24 8 36 0s24 8 36 0M128 52c12-8 24 8 36 0s24 8 36 0M128 70c12-8 24 8 36 0s24 8 36 0M128 88c12-8 24 8 36 0s24 8 36 0"/></g><text class="pm-ring"><textPath href="#pm-c" textLength="272" lengthAdjust="spacing">NADANO · MATEUSZDOMBROWSKI.COM ·</textPath></text><text class="pm-date" x="70" y="66" text-anchor="middle" data-today>06.10.2026</text></svg>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <a class="foot-code" href="mailto:kontakt@mateuszdombrowski.com" aria-label="Napisz: kontakt@mateuszdombrowski.com">
+    <span class="bars bars-foot" data-code="kontakt@mateuszdombrowski.com" aria-hidden="true"></span>
+    <span class="human" aria-hidden="true">KONTAKT@MATEUSZDOMBROWSKI.COM</span>
+  </a>
+  <div class="foot-line">
+    <span>© 2026 Mateusz Dombrowski</span>
+    <nav aria-label="Profile"><a href="https://github.com/matidomber" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/mateusz-dombrowski-61b95734a/" target="_blank" rel="noopener">LinkedIn</a><a href="https://useme.com/pl/roles/contractor/550126/" target="_blank" rel="noopener">Useme</a></nav>
+    <span>Dane w przykładzie są fikcyjne.</span>
+  </div>
+</footer>
+
+<a class="float-cta" href="#kontakt" aria-hidden="true" tabindex="-1">Opisz swój proces</a>
+<button class="to-top" type="button" aria-label="Wróć na górę strony"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
+<script src="assets/js/vendor/gsap.min.js" defer></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/vendor/Draggable.min.js" defer></script>
+<script src="assets/js/vendor/InertiaPlugin.min.js" defer></script>
+<script src="assets/js/vendor/lenis.min.js" defer></script>
+<script src="assets/js/app.js?v=20261006j" defer></script>
+</body>
+</html>

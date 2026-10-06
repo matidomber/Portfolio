@@ -20,17 +20,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "npm"
-
-      - run: npm ci
-      - run: npm run build
-
+      # Strona jest statyczna (folder site/), więc publikujemy ją bez budowania.
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./site
 
   deploy:
     environment:
