@@ -63,14 +63,14 @@
       var data = new FormData(form);
       var key = form.dataset.key;
       if (!key) {
-        var text = data.get('message') + '\n\n' + data.get('name') + '\n' + data.get('email');
+        var text = data.get('message') + '\n\n' + data.get('name') + '\n' + data.get('email') + (data.get('phone') ? '\n' + data.get('phone') : '');
         window.location.href = 'mailto:kontakt@mateuszdombrowski.com?subject=' + encodeURIComponent('Zapytanie ze strony') +
           '&body=' + encodeURIComponent(text);
         say('', 'Otwieram program pocztowy z gotową wiadomością.');
         return;
       }
       data.append('access_key', key);
-      data.append('subject', 'Zapytanie ze strony mateuszdombrowski.com');
+      data.append('subject', 'Zapytanie ze strony: ' + (data.get('temat') || 'mateuszdombrowski.com'));
       data.append('from_name', 'mateuszdombrowski.com');
       submit.disabled = true;
       say('', 'Wysyłam…');
@@ -141,6 +141,9 @@
   }
 
   gsap.registerPlugin(ScrollTrigger);
+  // Podstrony mają różne sekcje: brak elementu nie jest błędem, więc GSAP nie ostrzega o pustych celach.
+  gsap.config({ nullTargetWarn: false });
+  var has = function (s) { return !!$(s); };
   // Animacje wejścia nie zostają w tyle za przewijaniem: gdy sekcja minie górną ćwiartkę ekranu, kończą się od razu.
   ScrollTrigger.defaults({ toggleActions: 'play complete none none', end: 'top 25%' });
   if (window.Draggable) gsap.registerPlugin(Draggable);
@@ -219,7 +222,7 @@
 
   // Pływający przycisk kontaktu: widoczny między etykietą a formularzem.
   var floatCta = $('.float-cta');
-  ScrollTrigger.create({
+  if (floatCta && has('#kontakt')) ScrollTrigger.create({
     trigger: '.hero', start: 'bottom 30%', endTrigger: '#kontakt', end: 'top 85%',
     onToggle: function (self) { floatCta.classList.toggle('on', self.isActive); root.classList.toggle('cta-on', self.isActive); }
   });
@@ -531,6 +534,7 @@
     gsap.from('.tape-run-b', { xPercent: 12, rotation: 6, ease: 'none', scrollTrigger: { trigger: '.tapes', start: 'top bottom', end: 'center 45%', scrub: 0.8 } });
 
     // ---------- PROTOKÓŁ: kartka wjeżdża, ptaszki rysują się w rytm czytania, na końcu pieczątka.
+    if (has('.pain')) {
     gsap.from('.form-sheet', { x: -90, rotation: -5, opacity: 0, duration: 0.8, ease: 'expo.out', scrollTrigger: { trigger: '.pain', start: 'top 90%' } });
     var tickPaths = $$('.box path');
     gsap.set(tickPaths, { strokeDashoffset: 1 });
@@ -548,8 +552,10 @@
     ScrollTrigger.create(c.desktop
       ? { trigger: '.checks', start: 'bottom 75%', end: 'bottom 15%', animation: verdictTl }
       : { trigger: '.verdict', start: 'top 88%', animation: verdictTl });
+    }
 
     // ---------- CENNIK: arkusz opada, wiersze się drukują, kartony obracają się z przewijaniem.
+    if (has('.services')) {
     gsap.from('.price-sheet', { y: 100, rotation: 2.5, opacity: 0, duration: 0.8, ease: 'expo.out', scrollTrigger: { trigger: '.services', start: 'top 92%' } });
     $$('.price-row').forEach(function (row) {
       gsap.from(row, { clipPath: 'inset(0% 0% 100% 0%)', duration: 0.45, ease: 'steps(10)', clearProps: 'clipPath', scrollTrigger: { trigger: row, start: 'top 95%' } });
@@ -560,10 +566,19 @@
         scrollTrigger: { trigger: cube, start: 'top bottom', end: 'bottom top', scrub: 0.8 }
       });
     });
-    gsap.fromTo('.clock-hand', { rotation: 0 }, { rotation: 360, svgOrigin: '32 32', ease: 'none', scrollTrigger: { trigger: '.clock', start: 'top bottom', end: 'bottom top', scrub: true } });
+    if (has('.clock')) gsap.fromTo('.clock-hand', { rotation: 0 }, { rotation: 360, svgOrigin: '32 32', ease: 'none', scrollTrigger: { trigger: '.clock', start: 'top bottom', end: 'bottom top', scrub: true } });
+    }
+
+    // ---------- PRZESYŁKI (strona główna), lista aplikacji i odnośnik do drugiej oferty: karty opadają na karton.
+    $$('.offer').forEach(function (o, i) {
+      gsap.from(o, { y: 90, rotation: i % 2 ? 4 : -4, opacity: 0, duration: 0.8, ease: 'expo.out', delay: i * 0.08, scrollTrigger: { trigger: '.offers', start: 'top 88%' } });
+    });
+    if (has('.apps')) gsap.from('.apps-sheet', { x: 80, rotation: 3, opacity: 0, duration: 0.8, ease: 'expo.out', scrollTrigger: { trigger: '.apps', start: 'top 90%' } });
+    if (has('.also')) gsap.from('.also-in', { y: 50, opacity: 0, duration: 0.7, ease: 'expo.out', scrollTrigger: { trigger: '.also', start: 'top 92%' } });
 
     // ---------- PRZYKŁAD: drukarka wydaje paragon, a na kartkach pojawiają się zaznaczenia.
     var roll = d.getElementById('roll');
+    if (btn && roll) {
     var led = $('.led');
     var hlMarks = $$('.hl i');
     var penPaths = $$('.pen path');
@@ -626,6 +641,7 @@
         });
         cleanups.push(function () { drags.forEach(function (dr) { dr.kill(); }); });
       }
+    }
     }
 
     // ---------- ŚLEDZENIE: paczka jedzie po osi, statusy zapalają się po kolei.
