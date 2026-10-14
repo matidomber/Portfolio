@@ -684,7 +684,8 @@
       gsap.from(p, { y: -140, rotation: rot + (i % 2 ? -9 : 9), opacity: 0, duration: 0.85, ease: 'back.out(1.25)', delay: i * 0.1, scrollTrigger: { trigger: p, start: 'top 92%' } });
       gsap.from($('.tape-bit', p), { scaleX: 0, transformOrigin: 'left center', duration: 0.35, ease: 'power2.out', delay: 0.5 + i * 0.1, scrollTrigger: { trigger: p, start: 'top 92%' } });
       if (c.desktop) {
-        if (i) gsap.to(p, { yPercent: i === 1 ? 5 : -7, ease: 'none', scrollTrigger: { trigger: '.projects', start: 'top bottom', end: 'bottom top', scrub: true } });
+        // Paralaksa tylko dla dwóch małych kart obok siebie; karty na całą szerokość stoją w miejscu, żeby nie nachodziły na sąsiednie.
+        if ((i === 1 || i === 2) && !p.classList.contains('feat')) gsap.to(p, { yPercent: i === 1 ? 5 : -7, ease: 'none', scrollTrigger: { trigger: '.projects', start: 'top bottom', end: 'bottom top', scrub: true } });
         var enter = function () { gsap.to(p, { rotation: 0, y: -8, scale: 1.012, duration: 0.5, ease: 'power3.out' }); };
         var leave = function () { gsap.to(p, { rotation: rot, y: 0, scale: 1, duration: 0.6, ease: 'power3.out' }); };
         p.addEventListener('pointerenter', enter);

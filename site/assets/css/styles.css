@@ -297,7 +297,7 @@ h1 .ln{display:block}
 .tape-bit{position:absolute;z-index:2;top:-15px;left:50%;width:132px;height:32px;margin-left:-66px;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,0) 50%,rgba(0,0,0,.05)),var(--tape);box-shadow:0 1px 2px rgba(60,35,5,.25);transform:rotate(-3deg)}
 .pol-text{padding:18px 6px 0}
 .kind{font-weight:650;font-stretch:112%;font-size:13px;line-height:1}
-.pol-text h3{font-size:clamp(24px,2.4vw,34px);margin:10px 0 8px}
+.pol-text h3{font-size:clamp(24px,2.4vw,34px);margin:10px 0 8px;overflow-wrap:break-word}
 .pol-text p{margin:0 0 14px;color:var(--ink-2)}
 .pol-text a{font-weight:700;text-underline-offset:5px;text-decoration-thickness:2px}
 
@@ -551,7 +551,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 
 /* APLIKACJE NA ZAMÓWIENIE (podstrona stron) */
 .apps{padding:0 0 130px}
-.apps-sheet{position:relative;max-width:1040px;margin:0 auto;background:var(--paper);padding:34px 40px 22px;box-shadow:var(--lift);transform:rotate(-.5deg)}
+.apps-sheet{position:relative;background:var(--paper);padding:34px 40px 22px;box-shadow:var(--lift);transform:rotate(-.5deg)}
 .apps-sheet::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(90deg,var(--ink) 0 12px,transparent 12px 20px);opacity:.85}
 .apps-sheet h2{font-size:clamp(30px,4vw,54px);padding-bottom:20px;border-bottom:var(--rule)}
 .apps-list{list-style:none;margin:0;padding:0}
