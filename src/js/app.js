@@ -225,11 +225,17 @@
         // Czekam tylko na fonty (maks. 400 ms): obrazy poza etykietą i tak ładują się leniwie.
         Promise.race([fontsReady, wait(400)]).then(function () { tl.play(); });
       })
-      .to(box, { x: '+=1500', rotation: 9, skewX: -6, duration: 0.42, ease: 'power2.in' }, 'exit')
-      .to(txt, { opacity: 0, duration: 0.16, ease: 'none' }, 'exit')
-      .add(function () { resolveGate(); }, 'exit+=0.08')
-      .to(el, { opacity: 0, duration: 0.32, ease: 'power2.out' }, 'exit+=0.22')
-      .add(done);
+      .add(function () {
+        // Punkt startu dla etykiety hero: miejsce naklejki na kartonie (mierzone tuż przed wyjściem).
+        var lab = d.querySelector('#ld-label rect');
+        if (lab) { var r = lab.getBoundingClientRect(); window.__ldLabelRect = { left: r.left, top: r.top, width: r.width, height: r.height }; }
+        el.style.pointerEvents = 'none';
+        resolveGate();
+      }, 'exit')
+      .to('#ld-label', { opacity: 0, duration: 0.08, ease: 'none' }, 'exit')
+      .to(el, { backgroundColor: 'rgba(200,166,121,0)', duration: 0.25, ease: 'none' }, 'exit')
+      .to([box, txt], { opacity: 0, scale: 0.96, duration: 0.3, ease: 'power2.out', transformOrigin: '50% 60%' }, 'exit+=0.05')
+      .add(done, 'exit+=0.9');
     return gate;
   }
   var loaderGate = runLoader();
@@ -508,8 +514,18 @@
       gsap.set('.tape-hero', { opacity: 0, x: -40, rotation: -9 });
       gsap.set('.hero .mark', { '--mk': 0 });
       gsap.set('.peek', { opacity: 0, y: -110 });
+      // Po loaderze etykieta nie spada z góry: wyrasta z naklejki na kartonie (FLIP z jej prostokąta).
+      var flipFrom = function () {
+        var L = window.__ldLabelRect; if (!L) return null;
+        var S = sticker.getBoundingClientRect();
+        return { x: L.left - S.left, y: L.top - S.top, scaleX: L.width / S.width, scaleY: L.height / S.height };
+      };
       intro
-        .to(sticker, { opacity: 1, y: 0, rotation: c.desktop ? -0.6 : 0, scale: 1, duration: 0.6, ease: 'expo.out' })
+        .add(function () {
+          var f = flipFrom();
+          if (f) { gsap.set(sticker, { opacity: 1, y: f.y, x: f.x, scaleX: f.scaleX, scaleY: f.scaleY, rotation: 0, transformOrigin: '0 0' }); intro.getById('land').vars.ease = 'expo.inOut'; }
+        })
+        .to(sticker, { id: 'land', opacity: 1, x: 0, y: 0, rotation: c.desktop ? -0.6 : 0, scaleX: 1, scaleY: 1, scale: 1, duration: 0.6, ease: 'expo.out' })
         .to('.sticker-shadow', { opacity: 1, scale: 1, y: c.desktop ? 16 : 12, duration: 0.6, ease: 'expo.out' }, '<')
         .to('.frame', { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.66, ease: 'steps(22)', clearProps: 'clipPath' }, 0.22)
         .fromTo('.printhead', { y: 0, opacity: 1 }, { y: function () { return $('.frame').offsetHeight - 3; }, duration: 0.66, ease: 'steps(22)', immediateRender: false }, '<')
@@ -696,10 +712,24 @@
         onUpdate: function (self) {
           var p = self.progress;
           stages.forEach(function (s, i) { s.classList.toggle('wait', p < i / (stages.length - 1) - 0.015); });
+          stampWatch();
         }
       }
     });
     stages.forEach(function (s, i) { if (i) s.classList.add('wait'); });
+    // Pieczątki: każda wali w arkusz raz, gdy jej etap przestaje czekać; arkusz lekko drga.
+    var stampsTl = stages.map(function (s) {
+      var st = $('.st-stamp', s);
+      if (!st) return null;
+      gsap.set(st, { opacity: 0, scale: 2.4, rotation: -26, transformOrigin: '50% 50%' });
+      return gsap.timeline({ paused: true })
+        .to(st, { opacity: 0.9, scale: 1, rotation: -8, duration: 0.22, ease: 'power4.in' })
+        .to('.track', { x: 2, duration: 0.04, repeat: 3, yoyo: true, ease: 'none', clearProps: 'x' }, '>-0.02');
+    });
+    var stampWatch = function () {
+      stages.forEach(function (s, i) { var tl = stampsTl[i]; if (tl && !s.classList.contains('wait') && tl.progress() === 0 && !tl.isActive()) tl.play(); });
+    };
+    stampsTl[0] && stampsTl[0].play();
     if (c.desktop) {
       var parcel = $('.parcel');
       var line = $('.line');

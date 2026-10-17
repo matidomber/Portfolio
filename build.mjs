@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { transform } from 'esbuild';
 import { minify as minifyHtml } from 'html-minifier-terser';
+import QRCode from 'qrcode';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SRC = join(ROOT, 'src');
@@ -163,6 +164,13 @@ function pageVars(src) {
   if (!m) throw new Error('Strona bez nagłówka <!--@page {...} -->');
   return { vars: JSON.parse(m[1]), body: src.slice(m[0].length) };
 }
+// Wizytówka: plik .vcf do pobrania i kod QR z tą samą treścią (telefon po zeskanowaniu proponuje zapis kontaktu).
+const VCARD = ['BEGIN:VCARD', 'VERSION:3.0', 'N:Dombrowski;Mateusz;;;', 'FN:Mateusz Dombrowski', 'TITLE:Programista: strony, aplikacje, automatyzacje sklepów', 'EMAIL;TYPE=INTERNET:kontakt@mateuszdombrowski.com', 'URL:https://mateuszdombrowski.com/', 'END:VCARD'].join('\r\n') + '\r\n';
+async function buildVcard() {
+  write(join(OUT, 'mateusz-dombrowski.vcf'), VCARD);
+  const svg = await QRCode.toString(VCARD, { type: 'svg', errorCorrectionLevel: 'M', margin: 0, color: { dark: '#16130f', light: '#0000' } });
+  return svg.replace(/<\?xml[^>]*>/, '').replace(/\s+/g, ' ').trim();
+}
 async function buildPages(assets, manifest) {
   const inlineHashes = new Set();
   const pagesDir = join(SRC, 'pages');
@@ -257,6 +265,7 @@ async function build() {
   const fonts = buildFonts();
   const [css, js, manifest] = await Promise.all([buildCss(fonts.css), buildJs(), buildImages()]);
   const assets = { cssHref: css, vendorSrc: js.vendor, dragSrc: js.drag, appSrc: js.app, fontPreload: fonts.preload.map((u) => `<link rel="preload" href="${u}" as="font" crossorigin>`).join('\n') };
+  assets.qrSvg = await buildVcard();
   const { inlineHashes, urls } = await buildPages(assets, manifest);
   const policy = await buildStatic(inlineHashes, urls);
   // Meta CSP jako zapas (bez frame-ancestors, którego meta nie obsługuje), wstawiana w gotowe strony.
