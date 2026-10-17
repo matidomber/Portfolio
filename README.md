@@ -12,7 +12,8 @@ Strona usługowa Mateusza Dombrowskiego: strony i aplikacje dla firm, automatyza
   - `fonts/` – podzbiory woff2 (Mona Sans, Reddit Mono, Doto, Libre Barcode 128; licencja OFL) serwowane z własnej domeny.
 - **Build:** `npm run build` (`build.mjs`, Node 20+). Składa strony z fragmentów, robi polską typografię (twarde spacje), minifikuje HTML/CSS/JS, nadaje plikom nazwy z hashem, liczy hash skryptu inline do CSP i pisze `_headers` oraz `_redirects` dla Cloudflare Pages.
 - **Wynik:** folder `site/` (commitowany). Czysty HTML, CSS i JavaScript, bez frameworka.
-- **Podgląd:** `npm run serve` i `http://127.0.0.1:8080/`. Loader przy pierwszej wizycie w sesji; `?loader` wymusza go ponownie.
+- **Podgląd:** `npm run serve` i `http://127.0.0.1:8081/` (`serve.mjs`: Brotli, nagłówki z `site/_headers`, 404 jak na Cloudflare). Loader przy pierwszej wizycie w sesji na ekranach od 901 px; `?loader` wymusza go ponownie.
+- **Fonty:** `src/fonts/*.woff2` to podzbiory zrobione `pyftsubset` (fonttools) z plików Google Fonts: ASCII, Latin-1, Latin Extended-A, interpunkcja typograficzna; jeśli tekst dostanie znak spoza tych zakresów, wyświetli się w kroju systemowym.
 
 ## Publikacja
 

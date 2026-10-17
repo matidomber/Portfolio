@@ -7,7 +7,7 @@
   "scripts": {
     "build": "node build.mjs",
     "watch": "node build.mjs --watch",
-    "serve": "python -m http.server 8080 --bind 127.0.0.1 --directory site"
+    "serve": "node serve.mjs 8081"
   },
   "license": "UNLICENSED",
   "devDependencies": {
