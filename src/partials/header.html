@@ -1,0 +1,10 @@
+<header class="top" id="top">
+  <a class="brand" {{#home}}href="#main" data-top{{/home}}{{^home}}href="/"{{/home}}>Mateusz Dombrowski</a>
+  <nav class="menu" aria-label="Główna">
+    <a href="/strony-i-aplikacje/"{{#navStrony}} aria-current="page"{{/navStrony}}>Strony i aplikacje</a>
+    <a href="/automatyzacje-baselinker/"{{#navBase}} aria-current="page"{{/navBase}}>Sklepy i BaseLinker</a>
+    <a class="m-hide" href="#projekty">Projekty</a>
+    <a class="m-hide" href="#o-mnie">O mnie</a>
+  </nav>
+  <a class="btn" href="#kontakt">{{ctaLabel}}</a>
+</header>

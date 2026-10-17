@@ -1,0 +1,22 @@
+{
+  "name": "mateuszdombrowski-com",
+  "version": "4.0.0",
+  "private": true,
+  "description": "Strona mateuszdombrowski.com: statyczny HTML/CSS/JS budowany skryptem build.mjs z folderu src/ do site/.",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch",
+    "serve": "python -m http.server 8080 --bind 127.0.0.1 --directory site"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "esbuild": "^0.25.12",
+    "html-minifier-terser": "^7.2.0",
+    "sharp": "^0.34.5"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true,
+    "sharp@0.34.5": true
+  }
+}

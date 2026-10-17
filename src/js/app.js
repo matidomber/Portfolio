@@ -51,10 +51,12 @@
     var say = function (cls, text) { msg.className = 'form-msg' + (cls ? ' ' + cls : ''); msg.textContent = text; };
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      if (form.elements.botcheck.checked) return;
+      if (form.elements.botcheck.checked || performance.now() < 2500) return;
       var fields = form.querySelectorAll('[required]');
+      for (var i = 0; i < fields.length; i++) fields[i].removeAttribute('aria-invalid');
       for (var i = 0; i < fields.length; i++) {
         if (!fields[i].checkValidity()) {
+          fields[i].setAttribute('aria-invalid', 'true');
           fields[i].focus();
           say('err', fields[i].type === 'email' && fields[i].value ? 'Sprawdź adres e-mail.' : 'Uzupełnij wszystkie pola.');
           return;
@@ -115,18 +117,29 @@
       setTimeout(focusTop, reduce.matches ? 0 : 900);
     }
   }
+  // ---------- Nagłówek: przyklejony; chowa się przy przewijaniu w dół, wraca przy ruchu w górę. Przycisk powrotu po 1,4 ekranu.
   var toTop = $('.to-top');
-  if (toTop) {
-    var ticking = false;
-    var onScrollTop = function () {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(function () { ticking = false; toTop.classList.toggle('on', window.scrollY > window.innerHeight * 1.4); });
-    };
-    window.addEventListener('scroll', onScrollTop, { passive: true });
-    onScrollTop();
-    toTop.addEventListener('click', scrollTopNow);
-  }
+  var topBar = d.getElementById('top');
+  var lastY = window.scrollY;
+  var ticking = false;
+  var onScroll = function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      ticking = false;
+      var y = window.scrollY, dy = y - lastY;
+      lastY = y;
+      if (topBar) {
+        topBar.classList.toggle('stuck', y > 24);
+        if (y > 160 && dy > 2) topBar.classList.add('hide');
+        else if (dy < -2 || y <= 160) topBar.classList.remove('hide');
+      }
+      if (toTop) toTop.classList.toggle('on', y > window.innerHeight * 1.4);
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  if (toTop) toTop.addEventListener('click', scrollTopNow);
   $$('[data-top]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); scrollTopNow(); }); });
 
   var btn = d.getElementById('print');
@@ -152,7 +165,6 @@
 
   // ---------- LOADER: pliki wpadają do kartonu, klapy się zamykają, taśma, naklejka, paczka odjeżdża.
   var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
-  var pageLoaded = new Promise(function (r) { if (d.readyState === 'complete') r(); else window.addEventListener('load', r, { once: true }); });
   function runLoader() {
     var el = d.getElementById('loader');
     if (!el || !root.classList.contains('ld-on')) return Promise.resolve();
@@ -172,6 +184,7 @@
     var resolveGate;
     var gate = new Promise(function (r) { resolveGate = r; });
     var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.timeScale(matchMedia('(max-width: 900px)').matches ? 1.6 : 1.3);
     var skip = function () { tl.timeScale(4); };
     var done = function () {
       el.removeEventListener('pointerdown', skip);
@@ -184,48 +197,42 @@
     el.addEventListener('pointerdown', skip);
     window.addEventListener('keydown', skip);
     window.addEventListener('wheel', skip, { passive: true });
-    tl.from(box, { opacity: 0, scale: 0.9, y: 18, duration: 0.5, ease: 'expo.out', transformOrigin: '50% 60%' })
-      .from(txt, { opacity: 0, y: 6, duration: 0.4 }, 0.12);
+    tl.from(box, { opacity: 0, scale: 0.9, y: 18, duration: 0.36, ease: 'expo.out', transformOrigin: '50% 60%' })
+      .from(txt, { opacity: 0, y: 6, duration: 0.3 }, 0.08);
     ['#ld-p1', '#ld-p2', '#ld-p3'].forEach(function (f, i) {
-      var t = 0.24 + i * 0.13;
+      var t = 0.1 + i * 0.09;
       tl.set(f, { x: 182 + i * 18, y: -80 - i * 30, rotation: [-12, 8, -5][i], transformOrigin: '50% 50%' }, 0)
-        .to(f, { opacity: 1, duration: 0.08, ease: 'none' }, t)
-        .to(f, { y: 148 + i * 5, rotation: [-4, 3, -2][i], duration: 0.5, ease: 'power2.in' }, t)
-        .to(f, { opacity: 0, duration: 0.14, ease: 'none' }, t + 0.5);
+        .to(f, { opacity: 1, duration: 0.06, ease: 'none' }, t)
+        .to(f, { y: 148 + i * 5, rotation: [-4, 3, -2][i], duration: 0.34, ease: 'power2.in' }, t)
+        .to(f, { opacity: 0, duration: 0.1, ease: 'none' }, t + 0.34);
     });
     tl.add(function () {
         ['ld-f1', 'ld-f3', 'ld-f2', 'ld-f4', 'ld-tape', 'ld-label'].forEach(function (id) { box.appendChild(d.getElementById(id)); });
         txt.textContent = 'Zaklejam';
-      }, 1.02)
-      .to(['#ld-f1', '#ld-f2'], { fill: '#d6b88d', duration: 0.24, ease: 'none' }, 1.04)
-      .to('#ld-f1', { attr: { points: P.f1 }, duration: 0.22, ease: 'power2.inOut' }, 1.04)
-      .to('#ld-f3', { attr: { points: P.f3 }, duration: 0.22, ease: 'power2.inOut' }, 1.09)
-      .to('#ld-f2', { keyframes: [{ attr: { points: P.f2up }, duration: 0.12, ease: 'power1.in' }, { attr: { points: P.f2 }, duration: 0.17, ease: 'power2.out' }] }, 1.22)
-      .to('#ld-f4', { keyframes: [{ attr: { points: P.f4up }, duration: 0.12, ease: 'power1.in' }, { attr: { points: P.f4 }, duration: 0.17, ease: 'power2.out' }] }, 1.3)
-      .to('#ld-tape', { strokeDashoffset: 0, duration: 0.34, ease: 'power2.out' }, 1.64)
-      .add(function () { txt.textContent = 'Gotowe do wysyłki'; }, 1.96)
-      .set('#ld-label', { opacity: 1 }, 1.98)
-      .fromTo('#ld-label .ld-label-in', { scale: 1.6, rotation: -12, transformOrigin: '50% 50%' }, { scale: 1, rotation: 0, duration: 0.16, ease: 'power4.in' }, 1.98)
-      .to(box, { x: 3, duration: 0.05, repeat: 3, yoyo: true, ease: 'none' }, 2.13)
-      .addLabel('exit', 2.45)
+      }, 0.58)
+      .to(['#ld-f1', '#ld-f2'], { fill: '#d6b88d', duration: 0.18, ease: 'none' }, 0.6)
+      .to('#ld-f1', { attr: { points: P.f1 }, duration: 0.18, ease: 'power2.inOut' }, 0.6)
+      .to('#ld-f3', { attr: { points: P.f3 }, duration: 0.18, ease: 'power2.inOut' }, 0.64)
+      .to('#ld-f2', { keyframes: [{ attr: { points: P.f2up }, duration: 0.09, ease: 'power1.in' }, { attr: { points: P.f2 }, duration: 0.14, ease: 'power2.out' }] }, 0.74)
+      .to('#ld-f4', { keyframes: [{ attr: { points: P.f4up }, duration: 0.09, ease: 'power1.in' }, { attr: { points: P.f4 }, duration: 0.14, ease: 'power2.out' }] }, 0.8)
+      .to('#ld-tape', { strokeDashoffset: 0, duration: 0.26, ease: 'power2.out' }, 0.98)
+      .add(function () { txt.textContent = 'Wysyłam'; }, 1.16)
+      .set('#ld-label', { opacity: 1 }, 1.18)
+      .fromTo('#ld-label .ld-label-in', { scale: 1.6, rotation: -12, transformOrigin: '50% 50%' }, { scale: 1, rotation: 0, duration: 0.14, ease: 'power4.in' }, 1.18)
+      .to(box, { x: 3, duration: 0.05, repeat: 3, yoyo: true, ease: 'none' }, 1.31)
+      .addLabel('exit', 1.5)
       .addPause('exit', function () {
-        Promise.race([Promise.all([fontsReady, pageLoaded]), wait(1500)]).then(function () { tl.play(); });
+        // Czekam tylko na fonty (maks. 400 ms): obrazy poza etykietą i tak ładują się leniwie.
+        Promise.race([fontsReady, wait(400)]).then(function () { tl.play(); });
       })
-      .to(box, { x: '+=1500', rotation: 9, skewX: -6, duration: 0.5, ease: 'power2.in' }, 'exit')
-      .to(txt, { opacity: 0, duration: 0.2, ease: 'none' }, 'exit')
-      .add(function () { resolveGate(); }, 'exit+=0.3')
-      .to(el, { opacity: 0, duration: 0.4, ease: 'power2.out' }, 'exit+=0.38')
+      .to(box, { x: '+=1500', rotation: 9, skewX: -6, duration: 0.42, ease: 'power2.in' }, 'exit')
+      .to(txt, { opacity: 0, duration: 0.16, ease: 'none' }, 'exit')
+      .add(function () { resolveGate(); }, 'exit+=0.08')
+      .to(el, { opacity: 0, duration: 0.32, ease: 'power2.out' }, 'exit+=0.22')
       .add(done);
     return gate;
   }
   var loaderGate = runLoader();
-
-  // Pływający przycisk kontaktu: widoczny między etykietą a formularzem.
-  var floatCta = $('.float-cta');
-  if (floatCta && has('#kontakt')) ScrollTrigger.create({
-    trigger: '.hero', start: 'bottom 30%', endTrigger: '#kontakt', end: 'top 85%',
-    onToggle: function (self) { floatCta.classList.toggle('on', self.isActive); root.classList.toggle('cta-on', self.isActive); }
-  });
 
   // ---------- ZAWIESZKA: zdjęcie na sznurku przyklejonym taśmą do etykiety. Wahadło z bezwładnością; można złapać i pchnąć.
   function setupTag(animate) {
@@ -436,7 +443,14 @@
     if (window.Lenis) {
       lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1, smoothWheel: true });
       lenisRef = lenis;
-      if (root.classList.contains('ld-on')) { lenis.stop(); loaderGate.then(function () { lenis.start(); }); }
+      if (root.classList.contains('ld-on')) {
+        lenis.stop();
+        loaderGate.then(function () {
+          lenis.start();
+          var goal = location.hash && location.hash.length > 1 ? $(location.hash) : null;
+          if (goal) lenis.scrollTo(goal, { offset: -84, immediate: true });
+        });
+      }
       lenis.on('scroll', ScrollTrigger.update);
       var raf = function (t) { lenis.raf(t * 1000); };
       gsap.ticker.add(raf);
@@ -448,7 +462,7 @@
         var target = id.length > 1 ? $(id) : null;
         if (!target) return;
         e.preventDefault();
-        lenis.scrollTo(target, { offset: -12, duration: 1.4, easing: easeInOutCubic });
+        lenis.scrollTo(target, { offset: id === '#main' ? 0 : -84, duration: 1.4, easing: easeInOutCubic });
         if (id === '#main') return;
         var focusEl = target.matches('section') ? target : null;
         if (focusEl) { focusEl.setAttribute('tabindex', '-1'); setTimeout(function () { focusEl.focus({ preventScroll: true }); }, 1250); }
@@ -459,24 +473,53 @@
 
     // ---------- ETYKIETA: spada na karton, drukuje się linia po linii, potem taśma i marker.
     var sticker = $('.sticker');
-    var intro = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
-    gsap.set(sticker, { opacity: 0, y: -60, rotation: -5, scale: 1.05, transformPerspective: 1400 });
-    gsap.set('.sticker-shadow', { opacity: 0, scale: 1.1, y: 70 });
-    gsap.set('.frame', { clipPath: 'inset(0% 0% 100% 0%)' });
-    gsap.set('.tape-hero', { opacity: 0, x: -40, rotation: -9 });
-    gsap.set('.hero .mark', { '--mk': 0 });
-    gsap.set('.peek', { opacity: 0, y: -110 });
-    intro
-      .to(sticker, { opacity: 1, y: 0, rotation: c.desktop ? -0.6 : 0, scale: 1, duration: 0.7, ease: 'expo.out' })
-      .to('.sticker-shadow', { opacity: 1, scale: 1, y: c.desktop ? 16 : 12, duration: 0.7, ease: 'expo.out' }, '<')
-      .to('.frame', { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.8, ease: 'steps(22)', clearProps: 'clipPath' }, 0.3)
-      .fromTo('.printhead', { y: 0, opacity: 1 }, { y: function () { return $('.frame').offsetHeight - 3; }, duration: 0.8, ease: 'steps(22)', immediateRender: false }, '<')
-      .to('.printhead', { opacity: 0, duration: 0.25, ease: 'power2.out' })
-      .to('.tape-hero', { opacity: 1, x: 0, rotation: -2.5, duration: 0.4, ease: 'back.out(2.4)' }, '-=0.25')
-      .fromTo('.hangtag', { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'none', immediateRender: true, onStart: function () { if (tagApi) tagApi.drop(); } }, '<')
-      .to('.hero .mark', { '--mk': 1, duration: 0.45, ease: 'power2.inOut', stagger: 0.15 }, '-=0.2')
-      .to('.peek', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7');
-    loaderGate.then(function () { return Promise.race([fontsReady, wait(1200)]); }).then(function () { intro.play(); });
+    // Decyzja o wejściu etykiety zapada przy pierwszym renderze (pagereveal): po przejściu z innej podstrony
+    // etykieta przyjechała z poprzedniej strony i stoi od razu, w zwykłym wejściu spada na karton i się drukuje.
+    // Do tego czasu etykietę chowa CSS, więc nic nie mignie.
+    var revealed = new Promise(function (r) {
+      if (root.classList.contains('vt')) return r(true);
+      if (!('onpagereveal' in window)) return r(false);
+      window.addEventListener('pagereveal', function (e) { r(!!e.viewTransition); }, { once: true });
+      requestAnimationFrame(function () { r(false); });
+    });
+    revealed.then(function (viaVt) {
+      if (viaVt) {
+        gsap.set(sticker, { opacity: 1, rotation: c.desktop ? -0.6 : 0, transformPerspective: 1400 });
+        gsap.set('.sticker-shadow', { opacity: 1, y: c.desktop ? 16 : 12 });
+        gsap.set('.tape-hero', { opacity: 1, rotation: -2.5 });
+        gsap.set('.peek', { opacity: 1 });
+        if (tagApi) setTimeout(function () { tagApi.drop(); }, 450);
+        return;
+      }
+      var intro = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+      if (!c.desktop) {
+        // Telefon: etykieta stoi od pierwszego renderu (szybki LCP); ożywają tylko markery i taśma.
+        gsap.set('.hero .mark', { '--mk': 0 });
+        gsap.set('.tape-hero', { opacity: 0, x: 40, rotation: 4 });
+        intro
+          .to('.hero .mark', { '--mk': 1, duration: 0.45, ease: 'power2.inOut', stagger: 0.15 }, 0.1)
+          .to('.tape-hero', { opacity: 1, x: 0, rotation: -2.5, duration: 0.4, ease: 'back.out(2.4)' }, 0.25);
+        loaderGate.then(function () { return Promise.race([fontsReady, wait(800)]); }).then(function () { intro.play(); });
+        return;
+      }
+      gsap.set(sticker, { opacity: 0, y: -60, rotation: -5, scale: 1.05, transformPerspective: 1400 });
+      gsap.set('.sticker-shadow', { opacity: 0, scale: 1.1, y: 70 });
+      gsap.set('.frame', { clipPath: 'inset(0% 0% 100% 0%)' });
+      gsap.set('.tape-hero', { opacity: 0, x: -40, rotation: -9 });
+      gsap.set('.hero .mark', { '--mk': 0 });
+      gsap.set('.peek', { opacity: 0, y: -110 });
+      intro
+        .to(sticker, { opacity: 1, y: 0, rotation: c.desktop ? -0.6 : 0, scale: 1, duration: 0.6, ease: 'expo.out' })
+        .to('.sticker-shadow', { opacity: 1, scale: 1, y: c.desktop ? 16 : 12, duration: 0.6, ease: 'expo.out' }, '<')
+        .to('.frame', { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.66, ease: 'steps(22)', clearProps: 'clipPath' }, 0.22)
+        .fromTo('.printhead', { y: 0, opacity: 1 }, { y: function () { return $('.frame').offsetHeight - 3; }, duration: 0.66, ease: 'steps(22)', immediateRender: false }, '<')
+        .to('.printhead', { opacity: 0, duration: 0.22, ease: 'power2.out' })
+        .to('.tape-hero', { opacity: 1, x: 0, rotation: -2.5, duration: 0.4, ease: 'back.out(2.4)' }, '-=0.22')
+        .fromTo('.hangtag', { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'none', immediateRender: true, onStart: function () { if (tagApi) tagApi.drop(); } }, '<')
+        .to('.hero .mark', { '--mk': 1, duration: 0.45, ease: 'power2.inOut', stagger: 0.15 }, '-=0.2')
+        .to('.peek', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.7');
+      loaderGate.then(function () { return Promise.race([fontsReady, wait(1200)]); }).then(function () { intro.play(); });
+    });
 
     // Etykieta lekko odchyla się za kursorem; połysk to osobna warstwa przesuwana transformacją.
     if (c.desktop) {
@@ -678,14 +721,16 @@
     gsap.fromTo('.id-photo img', { clipPath: 'inset(0% 0% 100% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.9, ease: 'steps(24)', scrollTrigger: { trigger: '.id-card', start: 'top 85%' } });
 
     // ---------- PROJEKTY: zdjęcia spadają na karton, taśma je przykleja; przy najechaniu prostują się.
+    var small = 0;
     $$('.polaroid').forEach(function (p, i) {
-      var rot = [-0.8, -1.6, 1.4][i] || 0;
+      var feat = p.classList.contains('feat');
+      var rot = feat ? (i % 2 ? 0.7 : -0.8) : (i % 2 ? 1.4 : -1.6);
       gsap.set(p, { rotation: rot });
-      gsap.from(p, { y: -140, rotation: rot + (i % 2 ? -9 : 9), opacity: 0, duration: 0.85, ease: 'back.out(1.25)', delay: i * 0.1, scrollTrigger: { trigger: p, start: 'top 92%' } });
-      gsap.from($('.tape-bit', p), { scaleX: 0, transformOrigin: 'left center', duration: 0.35, ease: 'power2.out', delay: 0.5 + i * 0.1, scrollTrigger: { trigger: p, start: 'top 92%' } });
+      gsap.from(p, { y: -140, rotation: rot + (i % 2 ? -9 : 9), opacity: 0, duration: 0.85, ease: 'back.out(1.25)', delay: (i % 2) * 0.1, scrollTrigger: { trigger: p, start: 'top 92%' } });
+      gsap.from($('.tape-bit', p), { scaleX: 0, transformOrigin: 'left center', duration: 0.35, ease: 'power2.out', delay: 0.5 + (i % 2) * 0.1, scrollTrigger: { trigger: p, start: 'top 92%' } });
       if (c.desktop) {
-        // Paralaksa tylko dla dwóch małych kart obok siebie; karty na całą szerokość stoją w miejscu, żeby nie nachodziły na sąsiednie.
-        if ((i === 1 || i === 2) && !p.classList.contains('feat')) gsap.to(p, { yPercent: i === 1 ? 5 : -7, ease: 'none', scrollTrigger: { trigger: '.projects', start: 'top bottom', end: 'bottom top', scrub: true } });
+        // Paralaksa tylko dla małych kart w parach; karty na całą szerokość stoją w miejscu, żeby nie nachodziły na sąsiednie.
+        if (!feat) { gsap.to(p, { yPercent: small % 2 ? -7 : 5, ease: 'none', scrollTrigger: { trigger: '.projects', start: 'top bottom', end: 'bottom top', scrub: true } }); small++; }
         var enter = function () { gsap.to(p, { rotation: 0, y: -8, scale: 1.012, duration: 0.5, ease: 'power3.out' }); };
         var leave = function () { gsap.to(p, { rotation: rot, y: 0, scale: 1, duration: 0.6, ease: 'power3.out' }); };
         p.addEventListener('pointerenter', enter);

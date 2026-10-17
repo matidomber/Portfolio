@@ -1,0 +1,229 @@
+<!--@page {
+  "path": "/",
+  "home": true,
+  "title": "Mateusz Dombrowski · strony, aplikacje i automatyzacje sklepów",
+  "desc": "Projektuję i programuję strony i aplikacje dla firm oraz automatyzuję sklepy na BaseLinkerze. Strona-wizytówka od 1490 zł netto, odpowiedź w 24 godziny.",
+  "ctaLabel": "Napisz do mnie",
+  "contactTitle": "Napisz, czego potrzebujesz",
+  "contactIntro": "Napisz, czym się zajmujesz i co chcesz zrobić: nową stronę, aplikację albo automatyzację sklepu. Odpiszę w ciągu 24 godzin w dzień roboczy, z pytaniami albo od razu z propozycją zakresu.",
+  "contactLabel": "Co chcesz zrobić?",
+  "contactPlaceholder": "Np. potrzebuję strony dla firmy z galerią realizacji albo chcę, żeby stany z hurtowni same trafiały do BaseLinkera.",
+  "topicSelect": true
+} -->
+{{> head}}
+{{> loader}}
+{{> header}}
+
+<nav class="rail" aria-hidden="true">
+  <p class="rail-title">Trasa paczki</p>
+  <div class="rail-track">
+    <i class="rail-line"></i><i class="rail-fill"></i>
+    <div class="rail-parcel"><div class="carton carton-15"><div class="cube"><i class="f fr"></i><i class="f bk"></i><i class="f lf"></i><i class="f rt"></i><i class="f tp"></i><i class="f bt"></i></div></div></div>
+    <ol class="rail-stops">
+      <li data-target="#main"><a href="#main" tabindex="-1"><i></i><span>Start</span></a></li>
+      <li data-target="#oferta"><a href="#oferta" tabindex="-1"><i></i><span>Oferta</span></a></li>
+      <li data-target="#projekty"><a href="#projekty" tabindex="-1"><i></i><span>Projekty</span></a></li>
+      <li data-target="#o-mnie"><a href="#o-mnie" tabindex="-1"><i></i><span>O mnie</span></a></li>
+      <li data-target="#jak"><a href="#jak" tabindex="-1"><i></i><span>Jak pracuję</span></a></li>
+      <li data-target="#faq"><a href="#faq" tabindex="-1"><i></i><span>FAQ</span></a></li>
+      <li data-target="#kontakt"><a href="#kontakt" tabindex="-1"><i></i><span>Kontakt</span></a></li>
+    </ol>
+  </div>
+</nav>
+
+<main id="main" tabindex="-1">
+
+  <!-- ETYKIETA NADAWCZA -->
+  <section class="hero" aria-labelledby="h1">
+    <div class="sticker-wrap">
+      <div class="sticker-shadow" aria-hidden="true"></div>
+      <div class="sticker">
+        <i class="glare" aria-hidden="true"><b></b></i>
+        <div class="hangtag" aria-hidden="true">
+          <i class="ht-seg"></i><i class="ht-seg"></i>
+          <i class="ht-tape"></i>
+          <div class="ht-card"><div class="ht-face"><img src="/img/mateusz-tag.jpg" alt="" decoding="async" draggable="false"><b>Mateusz</b><small>programista, informatyk</small></div></div>
+        </div>
+        <i class="printhead" aria-hidden="true"></i>
+        <div class="tape tape-hero" aria-hidden="true"><span>Dwie przesyłki w środku</span></div>
+        <div class="frame">
+          <div class="cell from">
+            <img class="from-photo" src="/img/mateusz-tag.jpg" alt="" decoding="async">
+            <div><span class="cap">Nadawca</span><strong class="who">Mateusz Dombrowski</strong></div>
+            <span class="what">programista: strony, aplikacje, automatyzacje</span>
+          </div>
+          <div class="cell route">
+            <span class="route-big">24 h</span>
+            <span class="route-small">czas odpowiedzi<br>w dni robocze</span>
+          </div>
+          <div class="cell head">
+            <h1 id="h1"><span class="ln">Strony dla firm</span> <span class="ln"><span class="mark">i sklepy bez ręcznego</span></span> <span class="ln"><span class="mark">przepisywania.</span></span></h1>
+          </div>
+          <div class="cell to">
+            <span class="cap">Odbiorca</span><strong class="who">Twoja firma albo sklep</strong>
+            <p>Jestem programistą i informatykiem w firmie handlowej. Firmom robię strony i aplikacje, a sklepom na BaseLinkerze ustawiam automatyzacje, żeby powtarzalna praca robiła się sama.</p>
+          </div>
+          <div class="cell code">
+            <span class="cap">Numer przesyłki</span>
+            <span class="bars" data-code="mateuszdombrowski.com" aria-hidden="true"></span>
+            <span class="human">MATEUSZDOMBROWSKI.COM</span>
+          </div>
+          <div class="cell actions">
+            <a class="btn" href="/strony-i-aplikacje/">Strony i aplikacje</a>
+            <a class="more" href="/automatyzacje-baselinker/">Sklepy i BaseLinker</a>
+            <span class="meta">Faktura VAT przez Useme · Cena znana przed startem</span>
+          </div>
+        </div>
+      </div>
+      <div class="peek" aria-hidden="true">
+        <div class="receipt">
+          <p class="r-title">ZAWARTOŚĆ</p>
+          <p>2 przesyłki</p>
+          <hr>
+          <p class="r-row"><span>A Strony i aplikacje</span><span>1</span></p>
+          <p class="r-row"><span>B Sklepy i BaseLinker</span><span>1</span></p>
+          <hr>
+          <p>Wycena w 24 godziny.</p>
+        </div>
+      </div>
+    </div>
+    <div class="print print-recycle" aria-hidden="true">
+      <svg viewBox="0 0 100 86"><g stroke-width="6" fill="none"><path d="M54.5 13.8 82.6 63"/><path d="M81 76H25"/><path d="M14.5 68.2 42.6 19"/></g><path d="M87.5 71.7 88.5 57.2 74.7 65.2z"/><path d="M15 76 27 68v16z"/><path d="M47.5 10.3 48.5 24.8 34.7 16.8z"/><text x="50" y="62" text-anchor="middle">20</text></svg>
+      <b>PAP</b><span>tektura falista</span>
+    </div>
+    <div class="print print-handling" aria-hidden="true">
+      <svg viewBox="0 0 64 64"><rect x="8" y="52" width="48" height="5"/><path d="M22 50V22M42 50V22" stroke-width="5" fill="none"/><path d="M22 7l-9 17h18zM42 7l-9 17h18z"/></svg>
+      <svg viewBox="0 0 64 64"><path d="M17 7h30c0 15-5 25-15 27C22 32 17 22 17 7z"/><path d="M29 9l4 7-4 5 4 6" fill="none" stroke="#c8a679" stroke-width="2.6" stroke-linejoin="round"/><path d="M32 33v18" fill="none" stroke-width="4.5"/><rect x="20" y="51" width="24" height="5" rx="1"/></svg>
+      <svg viewBox="0 0 64 64"><path d="M7 33a25 23 0 0 1 50 0z"/><path d="M32 33v15a5.5 5.5 0 0 1-11 0" fill="none" stroke-width="4.5" stroke-linecap="round"/><path d="M14 6l-3 7M27 3l-3 7M40 3l-3 7M53 6l-3 7" fill="none" stroke-width="3.5" stroke-linecap="round"/></svg>
+    </div>
+  </section>
+
+  <!-- TAŚMY -->
+  <div class="tapes" aria-hidden="true">
+    <div class="tape-run tape-run-a"><div class="tape-track"><span>Strony i aplikacje</span><span>Strony i aplikacje</span><span>Strony i aplikacje</span><span>Strony i aplikacje</span><span>Strony i aplikacje</span><span>Strony i aplikacje</span></div></div>
+    <div class="tape-run tape-run-b"><div class="tape-track"><span>Sklepy i BaseLinker</span><span>Sklepy i BaseLinker</span><span>Sklepy i BaseLinker</span><span>Sklepy i BaseLinker</span><span>Sklepy i BaseLinker</span><span>Sklepy i BaseLinker</span></div></div>
+  </div>
+
+  <!-- DWIE PRZESYŁKI -->
+  <section class="offers" id="oferta" aria-labelledby="h-oferta">
+    <div class="wrap">
+      <h2 id="h-oferta" class="kin">W czym pomogę</h2>
+      <div class="offer-grid">
+        <a class="offer" href="/strony-i-aplikacje/">
+          <div class="offer-in">
+            <div class="offer-top"><span class="offer-no">Przesyłka A</span><div class="offer-ico" aria-hidden="true"><div class="carton carton-34"><div class="cube"><i class="f fr"><b>A</b></i><i class="f bk"></i><i class="f lf"></i><i class="f rt"></i><i class="f tp"><u class="flap fl"></u><u class="flap fr2"></u></i><i class="f bt"></i></div></div></div></div>
+            <div class="offer-body">
+              <h3>Strony i aplikacje</h3>
+              <p>Strona-wizytówka z realizacjami i formularzem, wizytówka w Mapach Google, aplikacje i narzędzia na zamówienie.</p>
+            </div>
+            <div class="offer-foot"><span class="offer-price">od 1490 zł netto</span><span class="offer-go">Zobacz ofertę stron</span></div>
+          </div>
+        </a>
+        <a class="offer" href="/automatyzacje-baselinker/">
+          <div class="offer-in">
+            <div class="offer-top"><span class="offer-no">Przesyłka B</span><div class="offer-ico" aria-hidden="true"><div class="carton carton-34"><div class="cube"><i class="f fr"><b>B</b></i><i class="f bk"></i><i class="f lf"></i><i class="f rt"></i><i class="f tp"><u class="flap fl"></u><u class="flap fr2"></u></i><i class="f bt"></i></div></div></div></div>
+            <div class="offer-body">
+              <h3>Sklepy i BaseLinker</h3>
+              <p>Importy z hurtowni do Base, automatyczne akcje, synchronizacja stanów, opieka techniczna sklepu.</p>
+            </div>
+            <div class="offer-foot"><span class="offer-price">pierwszy plik hurtowni sprawdzę bezpłatnie</span><span class="offer-go">Zobacz ofertę dla sklepów</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="print print-mark" aria-hidden="true"><b>MD</b><span class="pm-rule"></span><span>mateuszdombrowski.com</span><span>Spakowane w Polsce</span></div>
+  </section>
+
+  <!-- PROJEKTY -->
+  <section class="projects" id="projekty" aria-labelledby="h-proj">
+    <div class="wrap">
+      <h2 id="h-proj" class="kin">Projekty</h2>
+      <div class="proj-grid">
+        <article class="polaroid feat">
+          <i class="tape-bit" aria-hidden="true"></i>
+          <img src="/img/doko.jpg" alt="Strona główna doko.pl, hurtowni elektrotechnicznej DOKO" loading="lazy" decoding="async" data-sizes="(max-width: 900px) 100vw, (max-width: 1200px) 58vw, 710px">
+          <div class="pol-text">
+            <span class="kind">realizacja, strona firmowa</span>
+            <h3>DOKO, hurtownia elektro&shy;techniczna</h3>
+            <p>Nowa strona firmowa dla hurtowni elektrotechnicznej z siedmioma oddziałami w Polsce. Next.js i Payload CMS.</p>
+            <a href="https://doko.pl/" target="_blank" rel="noopener">Zobacz doko.pl</a>
+          </div>
+        </article>
+        <article class="polaroid feat">
+          <i class="tape-bit" aria-hidden="true"></i>
+          <img src="/img/skaner.jpg" alt="Raport skanera plików dostawców: lista produktów z oznaczonymi błędami i zmianami" loading="lazy" decoding="async" data-sizes="(max-width: 900px) 100vw, (max-width: 1200px) 58vw, 710px">
+          <div class="pol-text">
+            <span class="kind">narzędzie, sklepy na BaseLinkerze</span>
+            <h3>Skaner plików dostawców</h3>
+            <p>Czyta cenniki CSV, Excel i XML, sprawdza EAN-y, wagi, zdjęcia i duble, a po porównaniu z katalogiem z Base pokazuje, co jest nowe, co się zmieniło i czego już nie ma. Python, raport w przeglądarce.</p>
+            <a href="/automatyzacje-baselinker/#przyklad">Zobacz, jak działa</a>
+          </div>
+        </article>
+        <article class="polaroid">
+          <i class="tape-bit" aria-hidden="true"></i>
+          <img src="/img/kuznia.jpg" alt="Strona główna systemu Kuźnia Fitness" loading="lazy" decoding="async" data-sizes="(max-width: 900px) 100vw, 568px">
+          <div class="pol-text">
+            <span class="kind">projekt inżynierski</span>
+            <h3>Kuźnia Fitness</h3>
+            <p>System dla siłowni: rezerwacje, sklep, panel administratora. React, Node.js, Express, PostgreSQL.</p>
+            <a href="https://github.com/matidomber/GYM-main" target="_blank" rel="noopener">Kod na GitHubie</a>
+          </div>
+        </article>
+        <article class="polaroid">
+          <i class="tape-bit" aria-hidden="true"></i>
+          <img src="/img/hireup.jpg" alt="Strona główna platformy HireUP" loading="lazy" decoding="async" data-sizes="(max-width: 900px) 100vw, 568px">
+          <div class="pol-text">
+            <span class="kind">projekt studencki</span>
+            <h3>HireUP</h3>
+            <p>Platforma ogłoszeń z czatem w czasie rzeczywistym i ocenami. React, Firebase.</p>
+            <a href="https://github.com/matidomber/HIREUP" target="_blank" rel="noopener">Kod na GitHubie</a>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="print print-vertical" aria-hidden="true">Nie przepisywać ręcznie</div>
+  </section>
+
+{{> about}}
+
+  <!-- ŚLEDZENIE PRZESYŁKI -->
+  <section class="steps" id="jak" aria-labelledby="h-jak">
+    <div class="wrap">
+      <div class="track">
+        <div class="track-head">
+          <h2 id="h-jak" class="kin">Jak pracuję</h2>
+        </div>
+        <div class="stages-wrap">
+          <div class="line" aria-hidden="true"><i class="line-fill"></i></div>
+          <div class="parcel" aria-hidden="true"><div class="carton carton-30"><div class="cube"><i class="f fr"></i><i class="f bk"></i><i class="f lf"></i><i class="f rt"></i><i class="f tp"></i><i class="f bt"></i></div></div></div>
+          <ol class="stages">
+            <li class="stage"><b>Zgłoszenie</b><p>Opisujesz, czego potrzebujesz. Przy sklepie dołączasz próbkę danych.</p></li>
+            <li class="stage"><b>Wycena</b><p>Dostajesz zakres, cenę i termin. Cena nie zmienia się w trakcie, chyba że zmienisz zakres.</p></li>
+            <li class="stage"><b>Realizacja</b><p>Robię i sprawdzam na Twoich danych albo na telefonach i komputerach.</p></li>
+            <li class="stage"><b>Doręczono</b><p>Oddaję gotową pracę z instrukcją. Jedna tura poprawek jest w cenie.</p></li>
+          </ol>
+        </div>
+        <p class="track-note"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 7V5a4 4 0 1 1 8 0v2h1v8H3V7h1zm2 0h4V5a2 2 0 1 0-4 0v2z" fill="currentColor"/></svg>Do BaseLinkera wystarczy mi konto współpracownika z ograniczonymi uprawnieniami. Haseł do Twoich kont nie potrzebuję.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq" aria-labelledby="h-faq">
+    <div class="wrap faq-grid">
+      <div class="faq-side">
+        <h2 id="h-faq" class="kin">FAQ</h2>
+        <p>Krótko o rozliczeniach, czasie i dostępie do kont.</p>
+      </div>
+      <div class="faq-label">
+        <details><summary>Wystawiasz fakturę?</summary><div class="ans"><p>Tak. Rozliczam się przez Useme: wystawiają fakturę VAT, a płatność czeka u nich do odbioru pracy.</p></div></details>
+        <details><summary>Pracujesz na etacie. Znajdziesz czas?</summary><div class="ans"><p>Tak. Pracuję wieczorami i w weekendy, a w dni robocze odpowiadam w ciągu 24 godzin. Nie biorę dyżurów w godzinach 8–16.</p></div></details>
+        <details><summary>Potrzebujesz moich haseł?</summary><div class="ans"><p>Nie. W BaseLinkerze wystarczy konto współpracownika z ograniczonymi uprawnieniami, a przy stronie dostęp do domeny i hostingu na Twoim koncie.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+{{> contact}}
+</main>
+
+{{> footer}}

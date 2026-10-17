@@ -1,0 +1,19 @@
+<footer class="foot">
+  <a class="foot-code" href="mailto:kontakt@mateuszdombrowski.com">
+    <span class="bars bars-foot" data-code="kontakt@mateuszdombrowski.com" aria-hidden="true"></span>
+    <span class="human">kontakt@mateuszdombrowski.com</span>
+  </a>
+  <div class="foot-line">
+    <span>© {{year}} Mateusz Dombrowski</span>
+    <nav aria-label="Profile"><a href="https://github.com/matidomber" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/mateusz-dombrowski-61b95734a/" target="_blank" rel="noopener">LinkedIn</a><a href="https://useme.com/pl/roles/contractor/550126/" target="_blank" rel="noopener">Useme</a></nav>
+    {{#demo}}<span>Dane w przykładzie są fikcyjne.</span>{{/demo}}{{^demo}}<span>Strona bez ciasteczek i śledzenia.</span>{{/demo}}
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="Wróć na górę strony"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
+<script src="{{vendorSrc}}" defer></script>
+{{#drag}}<script src="{{dragSrc}}" defer></script>{{/drag}}
+<script src="{{appSrc}}" defer></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+  <!-- LIST PRZEWOZOWY -->
+  <section class="contact" id="kontakt" aria-labelledby="h-kontakt">
+    <div class="wrap contact-grid">
+      <div class="contact-side">
+        <h2 id="h-kontakt">{{contactTitle}}</h2>
+        <p>{{contactIntro}}</p>
+        <ul class="alt">
+          <li><a href="https://useme.com/pl/roles/contractor/550126/" target="_blank" rel="noopener">Wolisz Useme? Zobacz mój profil</a></li>
+          <li>E-mail: <a href="mailto:kontakt@mateuszdombrowski.com">kontakt@mateuszdombrowski.com</a></li>
+        </ul>
+      </div>
+      <div class="waybill">
+        <form class="frame" id="form" data-key="f60629bd-dc65-4b53-b53e-dfbd65c44a0f" novalidate>
+          <div class="field"><label for="f-name">Imię</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+          {{#phone}}<div class="field full"><label for="f-phone">Telefon (opcjonalnie)</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>{{/phone}}
+          {{#topicSelect}}<div class="field full"><label for="f-temat">Czego dotyczy</label><select id="f-temat" name="temat"><option value="Strona lub aplikacja">Strona lub aplikacja</option><option value="Sklep i BaseLinker">Sklep i BaseLinker</option><option value="Coś innego">Coś innego</option></select></div>{{/topicSelect}}
+          <div class="field full"><label for="f-msg">{{contactLabel}}</label><textarea id="f-msg" name="message" rows="5" required placeholder="{{contactPlaceholder}}"></textarea></div>
+          {{^topicSelect}}<input type="hidden" name="temat" value="{{temat}}">{{/topicSelect}}
+          <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="send">
+            <button class="btn" type="submit">Wyślij wiadomość</button>
+            <p class="form-msg" id="form-msg" role="status" aria-live="polite"></p>
+          </div>
+          <svg class="stamp stamp-sent" viewBox="0 0 220 220" aria-hidden="true"><g filter="url(#ink)"><rect x="12" y="62" width="196" height="96" rx="10" fill="none" stroke="currentColor" stroke-width="7"/><text class="stamp-big" x="110" y="124" text-anchor="middle">WYSŁANO</text></g></svg>
+        </form>
+      </div>
+    </div>
+    <div class="print print-post" aria-hidden="true">
+      <div class="stamp-wrap"><div class="stamp-post"><div class="sp-in"><svg viewBox="0 0 64 64"><path d="M32 8 56 20v26L32 58 8 46V20z" fill="#c8a679" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M8 20l24 12 24-12M32 32v26" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M20 14l24 12v8" fill="none" stroke="#ffd60a" stroke-width="5"/></svg><b>POLSKA</b><small>list przewozowy</small></div></div></div>
+      <svg class="postmark" viewBox="0 0 220 120"><defs><path id="pm-c" d="M70,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><g fill="none" stroke="currentColor" stroke-width="3"><circle cx="70" cy="60" r="52"/><circle cx="70" cy="60" r="34"/><path d="M128 34c12-8 24 8 36 0s24 8 36 0M128 52c12-8 24 8 36 0s24 8 36 0M128 70c12-8 24 8 36 0s24 8 36 0M128 88c12-8 24 8 36 0s24 8 36 0"/></g><text class="pm-ring"><textPath href="#pm-c" textLength="272" lengthAdjust="spacing">NADANO · MATEUSZDOMBROWSKI.COM ·</textPath></text><text class="pm-date" x="70" y="66" text-anchor="middle" data-today>{{buildDate}}</text></svg>
+    </div>
+  </section>

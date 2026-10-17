@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{title}}</title>
+<meta name="description" content="{{desc}}">
+{{#noindex}}<meta name="robots" content="noindex">{{/noindex}}
+<meta name="theme-color" content="#c8a679">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="{{canonical}}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="Mateusz Dombrowski">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{desc}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:image" content="{{siteUrl}}/assets/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Etykieta nadawcza: Mateusz Dombrowski, strony, aplikacje i automatyzacje sklepów">
+<meta name="twitter:card" content="summary_large_image">
+{{fontPreload}}
+{{^home}}<link rel="prefetch" href="/">{{/home}}{{^navStrony}}<link rel="prefetch" href="/strony-i-aplikacje/">{{/navStrony}}{{^navBase}}<link rel="prefetch" href="/automatyzacje-baselinker/">{{/navBase}}
+<link rel="stylesheet" href="{{cssHref}}">
+<script>(function(d){d.classList.add('js');addEventListener('pagereveal',function(e){if(e.viewTransition){d.classList.add('vt');d.classList.remove('ld-on')}});try{var f=/[?&]loader/.test(location.search);if(f||(matchMedia('(min-width: 901px)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!sessionStorage.getItem('md-ld'))){d.classList.add('ld-on')}}catch(e){}})(document.documentElement)</script>
+<script type="speculationrules">{"prerender":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+{{#home}}<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Mateusz Dombrowski","url":"https://mateuszdombrowski.com/","email":"kontakt@mateuszdombrowski.com","jobTitle":"Programista: strony, aplikacje i automatyzacje sklepów","knowsAbout":["Strony internetowe","Aplikacje webowe","BaseLinker","Automatyzacje n8n","Profil Firmy w Google"],"sameAs":["https://github.com/matidomber","https://www.linkedin.com/in/mateusz-dombrowski-61b95734a/","https://useme.com/pl/roles/contractor/550126/"]}
+</script>{{/home}}
+</head>
+<body>
