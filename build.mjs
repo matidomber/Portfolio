@@ -167,8 +167,9 @@ function pageVars(src) {
 // Wizytówka: plik .vcf do pobrania i kod QR z tą samą treścią (telefon po zeskanowaniu proponuje zapis kontaktu).
 const VCARD = ['BEGIN:VCARD', 'VERSION:3.0', 'N:Dombrowski;Mateusz;;;', 'FN:Mateusz Dombrowski', 'TITLE:Programista: strony, aplikacje, automatyzacje sklepów', 'EMAIL;TYPE=INTERNET:kontakt@mateuszdombrowski.com', 'URL:https://mateuszdombrowski.com/', 'END:VCARD'].join('\r\n') + '\r\n';
 async function buildVcard() {
-  write(join(OUT, 'mateusz-dombrowski.vcf'), VCARD);
-  const svg = await QRCode.toString(VCARD, { type: 'svg', errorCorrectionLevel: 'M', margin: 0, color: { dark: '#16130f', light: '#0000' } });
+  write(join(OUT, 'md.vcf'), VCARD);
+  // QR koduje krótki adres pliku .vcf (29 modułów), nie całą wizytówkę (61): telefon czyta go z daleka i bez celowania.
+  const svg = await QRCode.toString(SITE_URL + '/md.vcf', { type: 'svg', errorCorrectionLevel: 'M', margin: 0, color: { dark: '#16130f', light: '#0000' } });
   return svg.replace(/<\?xml[^>]*>/, '').replace(/\s+/g, ' ').trim();
 }
 async function buildPages(assets, manifest) {
@@ -247,6 +248,9 @@ async function buildStatic(inlineHashes, urls) {
     '  Cache-Control: public, max-age=31536000, immutable',
     '/assets/img/og.jpg',
     '  Cache-Control: public, max-age=86400',
+    '/md.vcf',
+    '  Content-Type: text/vcard; charset=utf-8',
+    '  Content-Disposition: inline; filename="Mateusz-Dombrowski.vcf"',
     '/favicon.svg',
     '  Cache-Control: public, max-age=604800',
     '/apple-touch-icon.png',
