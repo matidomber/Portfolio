@@ -1,8 +1,13 @@
 // Cloudflare Workers (same pliki statyczne): serwuje gotowy folder site/ z repozytorium.
 // Nagłówki bezpieczeństwa i cache są w site/_headers (generuje je build.mjs).
+// Trasa kieruje cały ruch domeny do Workera; www → bez www robi reguła przekierowania w panelu (działa przed Workerem).
 {
   "name": "portfolio",
   "compatibility_date": "2026-10-01",
+  "workers_dev": false,
+  "routes": [
+    { "pattern": "mateuszdombrowski.com/*", "zone_name": "mateuszdombrowski.com" }
+  ],
   "assets": {
     "directory": "./site",
     "html_handling": "auto-trailing-slash",
