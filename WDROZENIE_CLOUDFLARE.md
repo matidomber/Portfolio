@@ -9,7 +9,7 @@
 - **Szyfrowanie:** Always Use HTTPS włączone, minimum TLS 1.2, certyfikat Cloudflare aktywny. HSTS wysyła strona w `site/_headers`.
 - **Nagłówki bezpieczeństwa i cache:** `site/_headers` (generuje `build.mjs`). Mozilla Observatory: A+ (12/12).
 - **Adres workers.dev** wyłączony (`workers_dev: false`), żeby nie było drugiej publicznej kopii.
-- **Poczta kontakt@** idzie jak wcześniej przez przekierowanie Namecheap (Redirect Email → Gmail): rekordy MX `eforward1–5.registrar-servers.com` i SPF są w DNS Cloudflare. Jeśli kiedyś przestanie dochodzić: Cloudflare → Email → Email Routing (kontakt@ → Gmail).
+- **Poczta kontakt@:** Cloudflare Email Routing, reguła kontakt@mateuszdombrowski.com → matidomber14@gmail.com (rekordy MX `route1–3.mx.cloudflare.net`, SPF `include:_spf.mx.cloudflare.net`, DKIM `cf2024-1._domainkey`). Przekierowanie Namecheap (Redirect Email) przestało działać po zmianie nameserverów („554 Relay access denied”) i zostało zastąpione 18.10. Nowe adresy (np. oferty@) dodaje się w Email → Email Routing → Routing rules.
 - **Search Console:** własność potwierdzona dwiema metodami (plik HTML i rekord TXT `google-site-verification=…` w DNS Cloudflare). Rekordu TXT nie usuwać.
 
 ## Publikowanie zmian
