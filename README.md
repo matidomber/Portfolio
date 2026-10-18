@@ -17,6 +17,6 @@ Strona usługowa Mateusza Dombrowskiego: strony i aplikacje dla firm, automatyza
 
 ## Publikacja
 
-- **Cloudflare Workers (pliki statyczne):** `wrangler.jsonc` wskazuje folder `site/`; Cloudflare po każdym pushu na `main` uruchamia `npx wrangler deploy` (bez komendy builda). Nagłówki bezpieczeństwa i cache są w `site/_headers`. Lokalny test dokładnie na serwerze Cloudflare: `npx wrangler dev`. Instrukcja przeniesienia: `WDROZENIE_CLOUDFLARE.md`.
-- GitHub Actions (`.github/workflows/deploy.yml`) wysyła ten sam folder na GitHub Pages; zostaje jako zapas do czasu pełnego przeniesienia DNS.
+- **Cloudflare (od 18.10.2026):** DNS domeny w Cloudflare; Worker `portfolio` z plikami statycznymi (`wrangler.jsonc`, trasa `mateuszdombrowski.com/*`) wdraża się sam po każdym pushu na `main`. Nagłówki bezpieczeństwa i cache są w `site/_headers`. Lokalny test dokładnie na serwerze Cloudflare: `npx wrangler dev`. Szczegóły i ustawienia panelu: `WDROZENIE_CLOUDFLARE.md`.
+- GitHub Actions (`.github/workflows/deploy.yml`) wysyła ten sam folder na GitHub Pages jako zapas (rekordy A w DNS wskazują GitHub; trasa Workera ma pierwszeństwo).
 - Poprzednia wersja (React, Vite, three.js) jest zapisana pod tagiem `stara-strona-2026-10`.
