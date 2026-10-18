@@ -1,0 +1,11 @@
+// Cloudflare Workers (same pliki statyczne): serwuje gotowy folder site/ z repozytorium.
+// Nagłówki bezpieczeństwa i cache są w site/_headers (generuje je build.mjs).
+{
+  "name": "portfolio",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./site",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

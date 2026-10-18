@@ -1,64 +1,53 @@
-# Przeniesienie mateuszdombrowski.com na Cloudflare Pages
+# Przeniesienie mateuszdombrowski.com na Cloudflare
 
-Po co: GitHub Pages nie pozwala ustawić nagłówków bezpieczeństwa (CSP, HSTS, Permissions-Policy) ani długiego cache. Cloudflare Pages (plan Free) czyta je z pliku `site/_headers`, daje Brotli, HTTP/3 i serwery w Polsce. Kod zostaje w tym samym repozytorium GitHub; nic nie trzeba budować w chmurze, bo folder `site/` jest gotowy.
+Po co: GitHub Pages nie wysyła nagłówków bezpieczeństwa (CSP, HSTS, Permissions-Policy) i trzyma cache 10 minut. Cloudflare czyta je z `site/_headers`, kompresuje Brotli i ma serwery w Polsce.
 
-Wszystko poniżej robisz Ty (konta i DNS są Twoje). Czas: ok. 20 minut plus czekanie na DNS.
+Cloudflare zmienił kreator (2026): projekt zakłada się jako **Worker z plikami statycznymi**, a nie „Pages”. Repozytorium jest pod to przygotowane: `wrangler.jsonc` w głównym folderze wskazuje folder `site/`. Zachowanie (nagłówki, podstrony, 404) sprawdzone lokalnie na serwerze Cloudflare (`npx wrangler dev`).
 
-## 0. Zanim zaczniesz: zapisz obecne rekordy DNS
+## 1. Projekt (formularz „Set up your application”)
 
-W Namecheap → Domain List → Manage → Advanced DNS zrób zrzut ekranu wszystkich rekordów. Szczególnie **MX i TXT** (poczta kontakt@mateuszdombrowski.com musi działać dalej). Jeśli nie ma rekordów MX, poczta jest gdzie indziej (np. przekierowanie Namecheap „Email Forwarding”, które przy zmianie nameserverów przestaje działać; wtedy przekierowanie trzeba ustawić w Cloudflare: Email → Email Routing, też bezpłatne).
+| Pole | Wartość |
+|---|---|
+| Repozytorium | `matidomber/Portfolio` |
+| Project name | `portfolio` (musi się zgadzać z `name` w `wrangler.jsonc`) |
+| Build command | **puste** (folder `site/` jest gotowy w repozytorium) |
+| Deploy command | `npx wrangler deploy` |
+| Preview command | bez zmian |
+| Enable Preview builds | wyłącz (niepotrzebne) |
+| Protect with Cloudflare Access | wyłączone |
+| Advanced settings → Path | `/` |
+| API token | zostaw „Create new token” (Cloudflare utworzy go sam) |
 
-## 1. Konto i projekt Pages
+Kliknij **Deploy**. Po ok. minucie strona działa pod adresem `portfolio.<twoja-subdomena>.workers.dev`. Każdy push na `main` publikuje się sam.
 
-1. https://dash.cloudflare.com → Sign up (plan Free).
-2. Po lewej **Workers & Pages → Create → Pages → Connect to Git**.
-3. Połącz GitHub, wskaż repozytorium **matidomber/Portfolio**.
-4. Ustawienia:
-   - Project name: `mateuszdombrowski` (adres testowy będzie `mateuszdombrowski.pages.dev`),
-   - Production branch: `main`,
-   - Framework preset: **None**,
-   - Build command: **puste**,
-   - Build output directory: **`site`**.
-5. **Save and Deploy**. Po minucie strona działa pod `https://mateuszdombrowski.pages.dev`. Sprawdź ją: loader, przejścia między podstronami, formularz.
+## 2. Domena w Cloudflare
 
-Sprawdzenie nagłówków (w PowerShell):
+1. W panelu: **Add a domain** → `mateuszdombrowski.com` → plan **Free**. Cloudflare sam wczyta obecne rekordy DNS.
+2. Sprawdź, czy są te rekordy poczty (przekierowanie kontakt@ przez Namecheap). Jeśli któregoś brakuje, dodaj ręcznie:
+   - MX `@` → `eforward1.registrar-servers.com`, priorytet 10
+   - MX `@` → `eforward2.registrar-servers.com`, priorytet 10
+   - MX `@` → `eforward3.registrar-servers.com`, priorytet 10
+   - MX `@` → `eforward4.registrar-servers.com`, priorytet 15
+   - MX `@` → `eforward5.registrar-servers.com`, priorytet 20
+   - TXT `@` → `v=spf1 include:spf.efwd.registrar-servers.com ~all`
+3. Cloudflare poda dwa nameservery (`…ns.cloudflare.com`). W Namecheap: Domain List → Manage → **Nameservers: Custom DNS** → wklej oba → zapisz.
+4. Poczekaj, aż domena w Cloudflare będzie **Active** (zwykle 10–60 minut).
 
-```bash
-curl.exe -sI https://mateuszdombrowski.pages.dev/ | findstr /i "content-security strict-transport x-content cache-control cf-ray"
-```
+## 3. Podpięcie domeny do Workera
 
-Powinny być: `content-security-policy`, `strict-transport-security`, `x-content-type-options: nosniff`, `cache-control`, `cf-ray`.
+1. Cloudflare → DNS → Records: usuń 4 rekordy **A** dla `mateuszdombrowski.com` (185.199.108–111.153, stary GitHub Pages) i rekord dla `www`, jeśli jest. Rekordów MX i TXT nie ruszaj.
+2. Workers & Pages → **portfolio** → Settings → **Domains & Routes** → Add → **Custom domain** → `mateuszdombrowski.com`. Cloudflare sam utworzy rekord i certyfikat.
+3. Przekierowanie www na adres bez www:
+   - DNS → Add record: typ **A**, nazwa `www`, adres `192.0.2.1`, Proxy **włączone** (pomarańczowa chmurka);
+   - Rules → **Redirect Rules** → Create rule → szablon **„Redirect from WWW to root”** → Deploy.
+4. SSL/TLS → Edge Certificates → **Always Use HTTPS: On**.
 
-## 2. Domena w Cloudflare (DNS)
-
-1. W Cloudflare: **Add a domain** → `mateuszdombrowski.com` → plan Free. Cloudflare zeskanuje obecne rekordy. **Porównaj ze zrzutem z punktu 0**; brakujące MX/TXT dodaj ręcznie. Rekordy A (185.199.108–111.153, GitHub Pages) zostaw na razie.
-2. Cloudflare poda dwa nameservery (np. `xxx.ns.cloudflare.com`). W Namecheap → Domain → **Nameservers: Custom DNS** → wklej oba → zapisz.
-3. Czekaj, aż Cloudflare pokaże domenę jako **Active** (zwykle 10–60 minut, maks. 24 h).
-
-## 3. Podpięcie domeny do Pages
-
-1. Workers & Pages → projekt → **Custom domains → Set up a custom domain** → `mateuszdombrowski.com`. Cloudflare zaproponuje zamianę rekordów A na CNAME do `mateuszdombrowski.pages.dev`; zgódź się.
-2. Dodaj też `www.mateuszdombrowski.com` (plik `site/_redirects` przekieruje www na adres bez www).
-3. **SSL/TLS → Overview → Full (strict)** i **Edge Certificates → Always Use HTTPS: On**.
-
-Sprawdzenie:
-
-```bash
-curl.exe -sI https://mateuszdombrowski.com/ | findstr /i "content-security cf-ray server"
-```
-
-`server: cloudflare` i `content-security-policy` oznaczają, że ruch idzie już przez Cloudflare.
-
-## 4. Porządki po przeniesieniu
-
-- GitHub → repozytorium → Settings → Pages → **Unpublish site** (żeby stara kopia nie wisiała równolegle). Potem można usunąć `.github/workflows/deploy.yml` i `src/CNAME`.
-- Search Console nic nie zmienia: te same adresy, ten sam plik weryfikacyjny `google25cec84b609ddea3.html` jest w `site/`.
-- Każdy kolejny push na `main` publikuje się sam w ok. minutę.
-
-## Jak publikować zmiany
+## 4. Sprawdzenie
 
 ```bash
-npm run build
+curl.exe -sI https://mateuszdombrowski.com/
 ```
 
-Potem commit folderu `src/` i `site/` oraz push. Cloudflare Pages bierze gotowy `site/`.
+Mają być: `server: cloudflare`, `content-security-policy`, `strict-transport-security`. Wyślij też maila na kontakt@mateuszdombrowski.com i sprawdź, czy doszedł. Jeśli nie, włącz w Cloudflare **Email → Email Routing** (kontakt@ → Twój Gmail), Cloudflare sam podmieni rekordy MX.
+
+Napisz „gotowe”: Claude sprawdzi nagłówki, podstrony, formularz, Search Console i posprząta po GitHub Pages (workflow i plik CNAME).

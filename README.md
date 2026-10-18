@@ -17,6 +17,6 @@ Strona usługowa Mateusza Dombrowskiego: strony i aplikacje dla firm, automatyza
 
 ## Publikacja
 
-- **Cloudflare Pages** serwuje folder `site/` z gałęzi `main` (bez komendy builda). Nagłówki bezpieczeństwa i cache są w `site/_headers`.
+- **Cloudflare Workers (pliki statyczne):** `wrangler.jsonc` wskazuje folder `site/`; Cloudflare po każdym pushu na `main` uruchamia `npx wrangler deploy` (bez komendy builda). Nagłówki bezpieczeństwa i cache są w `site/_headers`. Lokalny test dokładnie na serwerze Cloudflare: `npx wrangler dev`. Instrukcja przeniesienia: `WDROZENIE_CLOUDFLARE.md`.
 - GitHub Actions (`.github/workflows/deploy.yml`) wysyła ten sam folder na GitHub Pages; zostaje jako zapas do czasu pełnego przeniesienia DNS.
 - Poprzednia wersja (React, Vite, three.js) jest zapisana pod tagiem `stara-strona-2026-10`.

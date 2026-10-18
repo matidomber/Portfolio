@@ -27,3 +27,6 @@ dist-ssr
 extract-textures.js
 replace-texture.js
 src/lanyard/textures/
+
+# Cloudflare Wrangler (lokalne testy)
+.wrangler/

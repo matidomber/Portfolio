@@ -94,7 +94,7 @@ async function buildImages() {
     const meta = await sharp(buf).metadata();
     if (name === 'og') {
       // Obraz do podglądów w komunikatorach: stały adres, JPG.
-      await sharp(buf).jpeg({ quality: 84, mozjpeg: true }).toFile(join(OUT, 'assets', 'img', 'og.jpg'));
+      await sharp(buf).jpeg({ quality: 84, mozjpeg: true }).toFile(join(OUT, 'og.jpg'));
       continue;
     }
     const widths = WIDTHS.filter((w) => w < meta.width);
@@ -234,22 +234,23 @@ async function buildStatic(inlineHashes, urls) {
   await sharp(svg, { density: 384 }).resize(512, 512).png().toFile(join(OUT, 'icon-512.png'));
   write(join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.sort().map((u) => `  <url><loc>${SITE_URL}${u}</loc><lastmod>${today()}</lastmod></url>`).join('\n')}\n</urlset>\n`);
   const policy = csp(inlineHashes);
+  // Cloudflare łączy przecinkiem wartości tego samego nagłówka z kilku pasujących reguł, dlatego Cache-Control
+  // jest tylko w regułach, które się nie nakładają (HTML dostaje domyślne „max-age=0, must-revalidate”).
+  // Przekierowanie www → bez www robi reguła w panelu Cloudflare, bo _redirects nie obsługuje innych domen.
   write(join(OUT, '_headers'), [
     '/*',
     `  Content-Security-Policy: ${policy}`,
-    '  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload',
+    '  Strict-Transport-Security: max-age=31536000; includeSubDomains',
     '  X-Content-Type-Options: nosniff',
     '  X-Frame-Options: DENY',
     '  Referrer-Policy: strict-origin-when-cross-origin',
-    '  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()',
+    '  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()',
     '  Cross-Origin-Opener-Policy: same-origin',
-    '  Cache-Control: public, max-age=0, must-revalidate',
     '/assets/*',
     '  Cache-Control: public, max-age=31536000, immutable',
-    '/assets/img/og.jpg',
+    '/og.jpg',
     '  Cache-Control: public, max-age=86400',
     '/md.vcf',
-    '  Content-Type: text/vcard; charset=utf-8',
     '  Content-Disposition: inline; filename="Mateusz-Dombrowski.vcf"',
     '/favicon.svg',
     '  Cache-Control: public, max-age=604800',
@@ -257,7 +258,6 @@ async function buildStatic(inlineHashes, urls) {
     '  Cache-Control: public, max-age=604800',
     '',
   ].join('\n'));
-  write(join(OUT, '_redirects'), `https://www.mateuszdombrowski.com/* ${SITE_URL}/:splat 301\n`);
   return policy;
 }
 
